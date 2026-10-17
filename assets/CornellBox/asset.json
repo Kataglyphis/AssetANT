@@ -1,0 +1,20 @@
+{
+  "name": "CornellBox",
+  "version": 1,
+  "file": "CornellBox.tar.xz",
+  "sha256": "272a0fe8ad780f56e796abee97f2766b194b1accdb8f70c9200422d45abda040",
+  "summary": "Eight Cornell Box scenes in OBJ: the original box, empty, glossy, mirror, sphere and water variants.",
+  "license": "CC BY 3.0",
+  "attribution": "Guedis Cardenas and Morgan McGuire, Williams College, 2011, after the Cornell University Program of Computer Graphics' box and Henrik Wann Jensen's variants",
+  "origin": "https://casual-effects.com/data (Cornell Box, CornellBox.zip)",
+  "notes": "copyright.txt in the archive states CC BY 3.0, as does the archive entry; the headers of several .obj files say 'Released into the Public Domain'.",
+  "source": {
+    "repository": "https://github.com/Kataglyphis/BeschleunigerBallett",
+    "commit": "c610c76fc0069604ff0f1e58051e0c2ac26e0cb1",
+    "path": "Resources/Models/CornellBox"
+  },
+  "unpacked": {
+    "files": 24,
+    "bytes": 1142922
+  }
+}

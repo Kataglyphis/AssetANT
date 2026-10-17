@@ -1,0 +1,20 @@
+{
+  "name": "Pillum",
+  "version": 1,
+  "file": "Pillum.tar.xz",
+  "sha256": "92131f93031b85ed51c0dbfdc2ae652e7ac1bb487bc47094472bc0ffea87ed5d",
+  "summary": "Small textured scene 'PilumPainting', 870 triangles (Blender 3.1.2 export), with three textures.",
+  "license": "unknown",
+  "attribution": "unknown",
+  "origin": null,
+  "notes": "No license or credit file came with it. Two textures are named like ambientCG's CC0 materials (Wood075, Metal038); 22.jpg and the mesh have no recorded source.",
+  "source": {
+    "repository": "https://github.com/Kataglyphis/BeschleunigerBallett",
+    "commit": "c610c76fc0069604ff0f1e58051e0c2ac26e0cb1",
+    "path": "Resources/Models/Pillum"
+  },
+  "unpacked": {
+    "files": 6,
+    "bytes": 668641
+  }
+}

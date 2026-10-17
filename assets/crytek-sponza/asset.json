@@ -1,0 +1,20 @@
+{
+  "name": "crytek-sponza",
+  "version": 1,
+  "file": "crytek-sponza.tar.xz",
+  "sha256": "3d0f157a4e54c653c7c5d8241f083bbf7aeb6dab44c98e7682e0b16485b1a821",
+  "summary": "Crytek's Sponza atrium, triangulated OBJ with textures; BeschleunigerBallett's Release default scene.",
+  "license": "CC BY 3.0",
+  "attribution": "(c) 2010 Frank Meinl, Crytek, after Marko Dabrovic's original Sponza; corrected textures and materials by Morgan McGuire (2011)",
+  "origin": "https://casual-effects.com/data (Crytek Sponza, sponza.zip)",
+  "notes": "copyright.txt in the archive is McGuire's; the archive entry states CC BY 3.0.",
+  "source": {
+    "repository": "https://github.com/Kataglyphis/BeschleunigerBallett",
+    "commit": "c610c76fc0069604ff0f1e58051e0c2ac26e0cb1",
+    "path": "Resources/Models/crytek-sponza"
+  },
+  "unpacked": {
+    "files": 39,
+    "bytes": 49490810
+  }
+}

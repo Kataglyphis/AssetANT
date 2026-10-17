@@ -1,0 +1,20 @@
+{
+  "name": "Sulo",
+  "version": 1,
+  "file": "Sulo.tar.xz",
+  "sha256": "8e14675411f6357953cb07542e74203f320bee551630b69ba8091a7fd65d1f2a",
+  "summary": "The Sulo set: a grandfather clock in three versions (SuloLongDongLampe), a wine glass and the Wolf-Stahl sword with 4K textures, plus their Blender source New_0.9.blend.",
+  "license": "by permission of the author, no open license",
+  "attribution": "Sulo456 (https://github.com/Sulo456)",
+  "origin": "https://github.com/Sulo456",
+  "notes": "Modelled by Sulo456, a professional 3D artist, and published here with his permission (owner, 2026-10-17); reuse beyond the Kataglyphis projects needs his consent.",
+  "source": {
+    "repository": "https://github.com/Kataglyphis/BeschleunigerBallett",
+    "commit": "c610c76fc0069604ff0f1e58051e0c2ac26e0cb1",
+    "path": "Resources/Models/Sulo"
+  },
+  "unpacked": {
+    "files": 17,
+    "bytes": 227869065
+  }
+}

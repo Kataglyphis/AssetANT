@@ -1,0 +1,20 @@
+{
+  "name": "Ajax",
+  "version": 1,
+  "file": "Ajax.tar.xz",
+  "sha256": "c9ef71cd8921d9ec681ed7e0d35f468c644bfb3ccf1e511a3f32b6112841a23b",
+  "summary": "Bust of Ajax: a 60,000-triangle statue scan, converted to OBJ with PoseRay 3.11.",
+  "license": "unknown",
+  "attribution": "unknown",
+  "origin": null,
+  "notes": "No license or credit file came with it. A free 'Ajax' scan by Jotero GbR (2006, about 540,000 polygons) is the likely original and this a reduction of it; not verified.",
+  "source": {
+    "repository": "https://github.com/Kataglyphis/BeschleunigerBallett",
+    "commit": "c610c76fc0069604ff0f1e58051e0c2ac26e0cb1",
+    "path": "Resources/Models/Ajax"
+  },
+  "unpacked": {
+    "files": 3,
+    "bytes": 4302773
+  }
+}

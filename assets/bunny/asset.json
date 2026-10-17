@@ -1,0 +1,20 @@
+{
+  "name": "bunny",
+  "version": 1,
+  "file": "bunny.tar.xz",
+  "sha256": "c213b41b0b24b7a54f4a209e25642b357581af15df760bef35140b97732a70ab",
+  "summary": "Stanford bunny range scan, 144,046 triangles, holes fixed and UV-mapped.",
+  "license": "Stanford 3D Scanning Repository terms, http://graphics.stanford.edu/data/3Dscanrep/",
+  "attribution": "(c) 1996 Stanford University: Greg Turk and Marc Levoy, Stanford 3D Scanning Repository; OBJ, hole fixes, normals and texture parameterization by Morgan McGuire (McGuire Computer Graphics Archive)",
+  "origin": "https://casual-effects.com/data (Stanford Bunny, bunny.zip)",
+  "notes": "No license file came with it. Its triangle count is the archive's 'Stanford Bunny' exactly, and its 3ds Max export date (2017-08-06) is the archive entry's update date. Those terms allow research use and free redistribution with credit, and no commercial use or product for sale without Stanford's permission.",
+  "source": {
+    "repository": "https://github.com/Kataglyphis/BeschleunigerBallett",
+    "commit": "c610c76fc0069604ff0f1e58051e0c2ac26e0cb1",
+    "path": "Resources/Models/bunny"
+  },
+  "unpacked": {
+    "files": 2,
+    "bytes": 13380936
+  }
+}

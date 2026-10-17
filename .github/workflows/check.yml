@@ -1,0 +1,23 @@
+# Every push and PR: each asset.json is complete and well-formed, and the scripts pass shellcheck.
+name: Check
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-26.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Validate every asset.json
+        run: python3 -I scripts/check.py
+
+      - name: Shellcheck the scripts
+        run: shellcheck scripts/*.sh

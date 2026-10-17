@@ -1,0 +1,20 @@
+{
+  "name": "buddha",
+  "version": 1,
+  "file": "buddha.tar.xz",
+  "sha256": "76d5c7d93b9d167e70bc5e8bdeb82ad09f1a6ac4e2c5117ecaefc4cbd4564086",
+  "summary": "Happy Buddha range scan, 1,087,474 triangles.",
+  "license": "Stanford 3D Scanning Repository terms, http://graphics.stanford.edu/data/3Dscanrep/",
+  "attribution": "(c) 1996 Stanford University: Brian Curless and Marc Levoy, Stanford 3D Scanning Repository; OBJ conversion by Morgan McGuire (McGuire Computer Graphics Archive)",
+  "origin": "https://casual-effects.com/data (Happy Buddha, buddha.zip)",
+  "notes": "No license file came with it. Its triangle count is the archive's 'Happy Buddha' exactly. Those terms allow research use and free redistribution with credit, and no commercial use or product for sale without Stanford's permission. Stanford asks that the Buddha, a religious symbol, be used with respect.",
+  "source": {
+    "repository": "https://github.com/Kataglyphis/BeschleunigerBallett",
+    "commit": "c610c76fc0069604ff0f1e58051e0c2ac26e0cb1",
+    "path": "Resources/Models/buddha"
+  },
+  "unpacked": {
+    "files": 2,
+    "bytes": 90859628
+  }
+}

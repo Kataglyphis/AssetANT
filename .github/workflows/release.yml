@@ -1,0 +1,75 @@
+# A tag <name>-v<N> packs assets/<name> from the commit its asset.json pins and publishes that release.
+# The archive must hash to asset.json's sha256, so a release never differs from the consumers' locks.
+name: Release an asset
+
+on:
+  push:
+    tags: ["*-v*"]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "An existing tag, <name>-v<N>"
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    # No container (owner rule: no stock images); Ubuntu 26.04's tar and xz repack Debian 13's first releases byte for byte.
+    runs-on: ubuntu-26.04
+    timeout-minutes: 90
+    env:
+      TAG: ${{ inputs.tag || github.ref_name }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ env.TAG }}
+
+      - name: Match the tag to its asset.json
+        id: asset
+        shell: bash
+        run: |
+          name="${TAG%-v*}"
+          spec="assets/${name}/asset.json"
+          [[ -f "${spec}" ]] || { echo "::error::no ${spec} for tag ${TAG}"; exit 1; }
+          version="$(jq -r '.version' "${spec}")"
+          [[ "${TAG}" == "${name}-v${version}" ]] || { echo "::error::${TAG} is not ${name}-v${version}, the version ${spec} records"; exit 1; }
+          {
+            echo "name=${name}"
+            echo "file=$(jq -r '.file' "${spec}")"
+            echo "sha256=$(jq -r '.sha256' "${spec}")"
+          } >>"${GITHUB_OUTPUT}"
+          if gh release view "${TAG}" --repo "${GITHUB_REPOSITORY}" >/dev/null 2>&1; then
+            echo "published=true" >>"${GITHUB_OUTPUT}"
+          else
+            echo "published=false" >>"${GITHUB_OUTPUT}"
+          fi
+
+      # A release made by hand (gh release create with the packed files) is checked, never replaced.
+      - name: Check the published archive
+        if: steps.asset.outputs.published == 'true'
+        shell: bash
+        env:
+          FILE: ${{ steps.asset.outputs.file }}
+          SHA256: ${{ steps.asset.outputs.sha256 }}
+        run: |
+          gh release download "${TAG}" --repo "${GITHUB_REPOSITORY}" --pattern "${FILE}" --dir published
+          echo "${SHA256}  published/${FILE}" | sha256sum -c -
+
+      - name: Pack it from its pinned source
+        if: steps.asset.outputs.published == 'false'
+        shell: bash
+        env:
+          NAME: ${{ steps.asset.outputs.name }}
+        run: |
+          bash scripts/fetch-source.sh "${NAME}" "${RUNNER_TEMP}/source"
+          bash scripts/release-files.sh "${RUNNER_TEMP}/source/Resources" "${NAME}" dist
+
+      - name: Publish the release
+        if: steps.asset.outputs.published == 'false'
+        shell: bash
+        run: |
+          gh release create "${TAG}" dist/"${TAG}"/* --repo "${GITHUB_REPOSITORY}" \
+            --verify-tag --title "${TAG}" --notes-file "dist/${TAG}.md"

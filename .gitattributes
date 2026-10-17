@@ -1,0 +1,2 @@
+# Scripts and data are LF on every checkout: a CR breaks bash and changes nothing else.
+* text=auto eol=lf

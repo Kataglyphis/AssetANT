@@ -1,0 +1,20 @@
+{
+  "name": "mori_knob",
+  "version": 1,
+  "file": "mori_knob.tar.xz",
+  "sha256": "e311d1d68e4873e4e6b560eff29fad3fa83971ebaa90a1f723b22533258fa24a",
+  "summary": "Yasutoshi Mori's material test orb (the Mori knob), 11,970 triangles, with G3D ArticulatedModel files.",
+  "license": "CC BY 4.0",
+  "attribution": "Yasutoshi 'Mirage' Mori; OBJ and G3D conversion by Kenny Jones and Morgan McGuire; preview render by Syoyo Fujita",
+  "origin": "https://casual-effects.com/data (Mori Knob, mori_knob.zip)",
+  "notes": "copyright.txt in the archive states CC BY 4.0; the archive entry states CC BY 3.0.",
+  "source": {
+    "repository": "https://github.com/Kataglyphis/BeschleunigerBallett",
+    "commit": "c610c76fc0069604ff0f1e58051e0c2ac26e0cb1",
+    "path": "Resources/Models/mori_knob"
+  },
+  "unpacked": {
+    "files": 6,
+    "bytes": 926856
+  }
+}

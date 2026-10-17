@@ -1,0 +1,5 @@
+# Only ADDS the ubuntu-26.04 preview labels, which the pinned actionlint predates.
+self-hosted-runner:
+  labels:
+    - ubuntu-26.04
+    - ubuntu-26.04-arm

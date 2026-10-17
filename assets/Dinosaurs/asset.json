@@ -1,0 +1,20 @@
+{
+  "name": "Dinosaurs",
+  "version": 1,
+  "file": "Dinosaurs.tar.xz",
+  "sha256": "56a738cd4d79f6e0461901cf0a7cf133c5a706c0791015bd838f503fbf4dc18d",
+  "summary": "Two dinosaur skeletons, one a Triceratops, on a ground plane, 298,058 triangles; BeschleunigerBallett's Debug default scene and a test fixture.",
+  "license": "unknown",
+  "attribution": "unknown",
+  "origin": null,
+  "notes": "No license or credit file came with it. The Triceratops mesh is named 'www_joel3d_com_Tricer', which points at joel3d.com as its source; not verified.",
+  "source": {
+    "repository": "https://github.com/Kataglyphis/BeschleunigerBallett",
+    "commit": "c610c76fc0069604ff0f1e58051e0c2ac26e0cb1",
+    "path": "Resources/Models/Dinosaurs"
+  },
+  "unpacked": {
+    "files": 3,
+    "bytes": 27265330
+  }
+}

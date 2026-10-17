@@ -1,0 +1,20 @@
+{
+  "name": "sportsCar",
+  "version": 1,
+  "file": "sportsCar.tar.xz",
+  "sha256": "1103b4c8c98bfc0a300949f22babd9c959155e7aaad3c396693e879c328dcf4b",
+  "summary": "Sports car, 300,603 triangles in 155,380 polygons.",
+  "license": "CC BY 4.0",
+  "attribution": "(c) 2015 Yasutoshi Mori; OBJ conversion by Jamie Lesser (McGuire Computer Graphics Archive)",
+  "origin": "https://casual-effects.com/data (Sports Car, sportsCar.zip; from https://github.com/MirageYM/3DModels)",
+  "notes": "No license file came with it. Name and size match the archive's 'Sports Car' (300,957 triangles listed, 300,603 here after triangulating its polygons), so the identification is probable, not certain.",
+  "source": {
+    "repository": "https://github.com/Kataglyphis/BeschleunigerBallett",
+    "commit": "c610c76fc0069604ff0f1e58051e0c2ac26e0cb1",
+    "path": "Resources/Models/sportsCar"
+  },
+  "unpacked": {
+    "files": 3,
+    "bytes": 16313118
+  }
+}

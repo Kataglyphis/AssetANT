@@ -1,0 +1,20 @@
+{
+  "name": "sibenik",
+  "version": 1,
+  "file": "sibenik.tar.xz",
+  "sha256": "7e2f9f8a0fc41c5ed7a3c0e7006645bf90579095bd9fd2e5a3e8737584a92567",
+  "summary": "Sibenik cathedral interior, 75,284 triangles, with textures and bump maps.",
+  "license": "CC BY-NC (version not stated)",
+  "attribution": "(c) 2002 Marko Dabrovic (www.RNA.HR); holes corrected by Kenzie Lamar at Vicarious Visions; high-resolution textures and bump maps by Morgan McGuire",
+  "origin": "https://casual-effects.com/data (Sibenik Cathedral, sibenik.zip)",
+  "notes": "copyright.txt in the archive names the authors but no license; the archive entry states CC BY-NC, so no commercial use.",
+  "source": {
+    "repository": "https://github.com/Kataglyphis/BeschleunigerBallett",
+    "commit": "c610c76fc0069604ff0f1e58051e0c2ac26e0cb1",
+    "path": "Resources/Models/sibenik"
+  },
+  "unpacked": {
+    "files": 9,
+    "bytes": 6174535
+  }
+}

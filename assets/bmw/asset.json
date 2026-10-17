@@ -1,0 +1,20 @@
+{
+  "name": "bmw",
+  "version": 1,
+  "file": "bmw.tar.xz",
+  "sha256": "57819c3f3032d075a4d6bd0be11c1ffe8650b82d758a8cb22765f63a7f92f67f",
+  "summary": "BMW car, 385,162 triangles: Mike Pan's Blender 2.7 demo car, cleaned up in 3ds Max by Morgan McGuire.",
+  "license": "CC0 1.0 (public domain)",
+  "attribution": "Mike Pan and Morgan McGuire (McGuire Computer Graphics Archive)",
+  "origin": "https://casual-effects.com/data (BMW, bmw.zip)",
+  "notes": "No license file came with it. The archive lists 'BMW' as CC0/Public Domain with 385,079 triangles, updated 2019-04-17; this bmw.mtl was exported from 3ds Max on 2019-04-16.",
+  "source": {
+    "repository": "https://github.com/Kataglyphis/BeschleunigerBallett",
+    "commit": "c610c76fc0069604ff0f1e58051e0c2ac26e0cb1",
+    "path": "Resources/Models/bmw"
+  },
+  "unpacked": {
+    "files": 3,
+    "bytes": 30427747
+  }
+}

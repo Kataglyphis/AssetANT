@@ -1,0 +1,20 @@
+{
+  "name": "StanfordDragon",
+  "version": 1,
+  "file": "StanfordDragon.tar.xz",
+  "sha256": "276c7f60e69f14204a4f32717acc7ca6387e0794140bd0171646bdeb94fe5bf5",
+  "summary": "Stanford Chinese dragon range scan, 871,306 triangles.",
+  "license": "Stanford 3D Scanning Repository terms, http://graphics.stanford.edu/data/3Dscanrep/",
+  "attribution": "(c) 1996 Stanford University, Stanford 3D Scanning Repository; OBJ conversion of Georgia Tech's PLY by Morgan McGuire (McGuire Computer Graphics Archive)",
+  "origin": "https://casual-effects.com/data (Chinese Dragon, dragon.zip)",
+  "notes": "No license file came with it. Its triangle count is the archive's 'Chinese Dragon' exactly. Those terms allow research use and free redistribution with credit, and no commercial use or product for sale without Stanford's permission.",
+  "source": {
+    "repository": "https://github.com/Kataglyphis/BeschleunigerBallett",
+    "commit": "c610c76fc0069604ff0f1e58051e0c2ac26e0cb1",
+    "path": "Resources/Models/StanfordDragon"
+  },
+  "unpacked": {
+    "files": 2,
+    "bytes": 72349736
+  }
+}
