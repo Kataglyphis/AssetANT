@@ -5,8 +5,9 @@ metadata (where it came from, its license and credit, the SHA-256 of its archive
 the files themselves are a GitHub release asset, one `<name>.tar.xz` per release. A consumer pins
 each archive's URL and SHA-256 in a lock file and fetches it at build time, so no scene sits in its
 working tree. [BeschleunigerBallett](https://github.com/Kataglyphis/BeschleunigerBallett) is the
-first: it tracked these 14 scenes (518 MiB of its 633 MiB) until 2026-10-17, and its history still
-holds them, which is where the archives are packed from. [ModelANT](https://github.com/Kataglyphis/ModelANT)
+first: it tracked these 14 scenes (518 MiB of its 633 MiB) until 2026-10-17, and the family's
+history rewrite of that day took them out of its history too, so these releases are their only copy
+([below](#the-first-14-are-not-repacked)). [ModelANT](https://github.com/Kataglyphis/ModelANT)
 does the same for the family's machine-learning models.
 
 ## The assets
@@ -56,6 +57,14 @@ group 0, modes 644 and 755, no xattrs or ACLs, then `xz -9` on one thread. On 20
 (tar 1.35, xz 5.8.1) and Ubuntu 26.04 (tar 1.35, xz 5.8.3) packed `CornellBox`, `Dinosaurs` and
 `mori_knob` to the same hashes, and so did a umask of 077 over a source fetched with
 `fetch-source.sh` instead of a full clone.
+
+### The first 14 are not repacked
+
+Their `source.commit` is BeschleunigerBallett's `c610c76`, from before the family's history rewrite
+of 2026-10-17. The rewrite dropped every file of 500 KB or more that no branch held, the scenes
+among them, so neither `fetch-source.sh` nor `release.yml` can rebuild these archives. They stay as
+published, and their `source` records where they were packed from. A new asset needs a source that
+still exists: a public commit that holds its files, often the author's own repository.
 
 ## Releasing
 
