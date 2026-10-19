@@ -1,8 +1,8 @@
 # Assets: the layout, an archive, and how one is released
 
-The [README](../README.md) lists the assets and their licenses. This page is how they are
-packed, released, added and used. Why scenes live outside the code, and the lock every consumer
-keeps, is the family's contract, kept in ANTfrastructure's
+The [README](../README.md) lists the assets and their licenses; this page packs, releases, adds
+and uses them. Why scenes live outside the code, and the lock every consumer keeps, is the family's
+contract, in ANTfrastructure's
 [`data-repositories.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/data-repositories.md).
 
 ## Layout
@@ -19,27 +19,28 @@ keeps, is the family's contract, kept in ANTfrastructure's
 ## An archive
 
 `<name>.tar.xz` unpacks to `<name>/`: the source directory exactly as it is at `source.commit`,
-plus `ATTRIBUTION.txt`, written from `asset.json` so the credit travels with the files. The bytes
-depend on the content alone: GNU tar in `gnu` format, entries sorted by name, mtime 0, owner and
-group 0, modes 644 and 755, no xattrs or ACLs, then `xz -9` on one thread. On 2026-10-17 Debian 13
-(tar 1.35, xz 5.8.1) and Ubuntu 26.04 (tar 1.35, xz 5.8.3) packed `CornellBox`, `Dinosaurs` and
-`mori_knob` to the same hashes, and so did a umask of 077 over a source fetched with
-`fetch-source.sh` instead of a full clone.
+plus `ATTRIBUTION.txt`, written from `asset.json` so the credit travels with the files.
+
+The bytes depend on the content alone: GNU tar in `gnu` format, entries sorted by name, mtime 0,
+owner and group 0, modes 644 and 755, no xattrs or ACLs, then `xz -9` on one thread. On
+2026-10-17 Debian 13 (tar 1.35, xz 5.8.1) and Ubuntu 26.04 (tar 1.35, xz 5.8.3) packed
+`CornellBox`, `Dinosaurs` and `mori_knob` to the same hashes, and so did a umask of 077 over a
+source fetched with `fetch-source.sh` instead of a full clone.
 
 ### The first 14 are not repacked
 
-Their `source.commit` is BeschleunigerBallett's `c610c76`, from before the family's history rewrite
-of 2026-10-17. The rewrite dropped every file of 500 KB or more that no branch held, the scenes
-among them, so neither `fetch-source.sh` nor `release.yml` can rebuild these archives. They stay as
-published, and their `source` records where they were packed from. A new asset needs a source that
-still exists: a public commit that holds its files, often the author's own repository.
+Their `source.commit` is BeschleunigerBallett's `c610c76`, from before the family's history
+rewrite of 2026-10-17. The rewrite dropped every file of 500 KB or more that no branch held, the
+scenes among them, so neither `fetch-source.sh` nor `release.yml` can rebuild these archives. They
+stay as published; their `source` records where they were packed from. A new asset needs a source
+that still exists: a public commit that holds its files, often the author's own repository.
 
 ## Releasing
 
 One release per asset version, tag `<name>-v<N>`, carrying `<name>.tar.xz`, `<name>.asset.json`
 and `SHA256SUMS`, at `https://github.com/Kataglyphis/AssetANT/releases/download/<name>-v<N>/<name>.tar.xz`.
-Per asset rather than one bundle, so a consumer's lock moves one line when one asset changes,
-no release is ever edited or carries an unchanged copy, and the tag names exactly what it holds.
+Per asset, not one bundle: a consumer's lock moves one line when one asset changes, no release is
+ever edited or carries an unchanged copy, and the tag names exactly what it holds.
 
 ```bash
 bash scripts/fetch-source.sh <name> .work/src          # or any checkout of source.repository at source.commit
@@ -48,9 +49,9 @@ python3 -I scripts/check.py
 git commit -am "<name>: v<N>" && git tag <name>-v<N> && git push origin develop <name>-v<N>
 ```
 
-`release.yml` then repacks the asset from its pinned source on an `ubuntu-26.04` runner (no container) and publishes it only
-when the archive hashes to `asset.json`'s `sha256`. A release that already exists is checked, never
-replaced. To publish by hand instead, from the same files:
+`release.yml` then repacks the asset from its pinned source on an `ubuntu-26.04` runner (no
+container) and publishes it only when the archive hashes to `asset.json`'s `sha256`. A release
+that already exists is checked, never replaced. To publish by hand, from the same files:
 
 ```bash
 bash scripts/release-files.sh <Resources dir> <name> dist
@@ -71,8 +72,8 @@ gh release create <name>-v<N> dist/<name>-v<N>/* --title <name>-v<N> --notes-fil
 ## Using an asset
 
 Pin the archive in a lock file, one line per asset, `<sha256>  <file>  <url>` (the format of
-OxidANT's `models.lock`), and check the hash after every download. BeschleunigerBallett's
-`Resources/assets.lock` and `cmake/FetchAssets.cmake` are the reference: the configure downloads
-through a per-user cache keyed by the hash, extracts into `Resources/Models`, and leaves a stamp so
-the next configure does nothing. What every fetcher checks, the stamp included:
+OxidANT's `models.lock`), and check the hash after every download. The reference is
+BeschleunigerBallett's `Resources/assets.lock` and `cmake/FetchAssets.cmake`: the configure
+downloads through a per-user cache keyed by the hash, extracts into `Resources/Models`, and leaves a
+stamp so the next configure does nothing. What every fetcher checks, the stamp included:
 [`data-repositories.md` § The lock](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/data-repositories.md#the-lock).
