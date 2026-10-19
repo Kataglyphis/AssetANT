@@ -1,4 +1,16 @@
-# AssetANT
+<div align="center">
+  <a href="https://jonasheinle.de">
+    <img src="https://raw.githubusercontent.com/Kataglyphis/ANTfrastructure/develop/images/logo.png" alt="logo" width="200" />
+  </a>
+
+  <h1>AssetANT</h1>
+
+  <h4>3D scenes and textures for the Kataglyphis projects, one reproducible archive per release, pinned by SHA-256.</h4>
+</div>
+
+[![Check](https://github.com/Kataglyphis/AssetANT/actions/workflows/check.yml/badge.svg)](https://github.com/Kataglyphis/AssetANT/actions/workflows/check.yml)
+
+[**Releases**](https://github.com/Kataglyphis/AssetANT/releases)
 
 The Kataglyphis family's 3D scenes, kept apart from the code that renders them. Each scene's
 metadata (where it came from, its license and credit, the SHA-256 of its archive) is in git here;
@@ -7,8 +19,17 @@ each archive's URL and SHA-256 in a lock file and fetches it at build time, so n
 working tree. [BeschleunigerBallett](https://github.com/Kataglyphis/BeschleunigerBallett) is the
 first: it tracked these 14 scenes (518 MiB of its 633 MiB) until 2026-10-17, and the family's
 history rewrite of that day took them out of its history too, so these releases are their only copy
-([below](#the-first-14-are-not-repacked)). [ModelANT](https://github.com/Kataglyphis/ModelANT)
+([docs/assets.md](docs/assets.md#the-first-14-are-not-repacked)). [ModelANT](https://github.com/Kataglyphis/ModelANT)
 does the same for the family's machine-learning models.
+
+## Highlights
+
+- **One release per asset version**, tag `<name>-v<N>`: a consumer's lock moves one line when one asset changes.
+- **Reproducible archives**: sorted entries, mtime 0, owner 0, `xz -9` on one thread; Debian 13 and Ubuntu 26.04 pack the same hashes.
+- **Never replaced**: a changed asset is a new version, and `release.yml` checks a published release instead of overwriting it.
+- **The credit travels with the files**: every archive carries `ATTRIBUTION.txt`, written from its `asset.json`.
+- **No license is guessed**: what was not found is `unknown`, and `notes` says how each one was established.
+- **Checked on every push**: `scripts/check.py` validates every `asset.json` and that the table below lists it.
 
 ## The assets
 
@@ -37,78 +58,32 @@ and is published here with his permission (2026-10-17); it carries no open licen
 beyond the Kataglyphis projects needs his consent. `sibenik` is non-commercial, and the three
 Stanford scans may not be used commercially without Stanford's permission.
 
-## Layout
+## Quick start
 
-| Path | What |
+```bash
+git clone --branch develop https://github.com/Kataglyphis/AssetANT.git
+cd AssetANT
+python3 -I scripts/check.py   # every asset.json is complete, and the table above lists it
+```
+
+A consumer does not clone this: it pins each archive's URL and SHA-256 in a lock and fetches it
+at build time, as [docs/assets.md](docs/assets.md#using-an-asset) shows.
+
+## Documentation
+
+| Topic | Read |
 | --- | --- |
-| `assets/<name>/asset.json` | One asset: `name` (its directory, and the archive's top-level directory), `version` (its release is `<name>-v<version>`), `file`, `sha256` and `unpacked` (written by `pack.sh --record`), `summary`, `license`, `attribution`, `origin`, `notes`, and `source`: the repository, commit and directory it is packed from |
-| `scripts/pack.sh` | `pack.sh [--record] <Resources dir> <out dir> [name ...]`: one reproducible archive per asset plus `SHA256SUMS`; fails when an archive does not hash to its `asset.json` |
-| `scripts/fetch-source.sh` | `fetch-source.sh <name> <dir>`: a sparse, blob-less checkout of the commit `source` pins, with only that directory |
-| `scripts/release-files.sh` | `release-files.sh <Resources dir> <name> <out dir>`: a release's files in `<out>/<name>-v<N>/`, its notes in `<out>/<name>-v<N>.md` |
-| `scripts/check.py` | Validates every `asset.json` and that this table lists it; `check.yml` runs it with shellcheck on every push |
-| `.github/workflows/release.yml` | A tag `<name>-v<N>` packs that asset from its pinned source and publishes the release |
+| What each file here does | [docs/assets.md](docs/assets.md#layout) |
+| What an archive holds, and why its bytes are reproducible | [docs/assets.md](docs/assets.md#an-archive) |
+| Why the first 14 archives cannot be repacked | [docs/assets.md](docs/assets.md#the-first-14-are-not-repacked) |
+| Releasing an asset | [docs/assets.md](docs/assets.md#releasing) |
+| Adding or changing an asset | [docs/assets.md](docs/assets.md#adding-or-changing-an-asset) |
+| Using an asset in a consumer | [docs/assets.md](docs/assets.md#using-an-asset) |
+| Why scenes live outside the code, and the lock every consumer keeps | [ANTfrastructure: `data-repositories.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/data-repositories.md) |
 
-## An archive
+## Contributing and contact
 
-`<name>.tar.xz` unpacks to `<name>/`: the source directory exactly as it is at `source.commit`,
-plus `ATTRIBUTION.txt`, written from `asset.json` so the credit travels with the files. The bytes
-depend on the content alone: GNU tar in `gnu` format, entries sorted by name, mtime 0, owner and
-group 0, modes 644 and 755, no xattrs or ACLs, then `xz -9` on one thread. On 2026-10-17 Debian 13
-(tar 1.35, xz 5.8.1) and Ubuntu 26.04 (tar 1.35, xz 5.8.3) packed `CornellBox`, `Dinosaurs` and
-`mori_knob` to the same hashes, and so did a umask of 077 over a source fetched with
-`fetch-source.sh` instead of a full clone.
-
-### The first 14 are not repacked
-
-Their `source.commit` is BeschleunigerBallett's `c610c76`, from before the family's history rewrite
-of 2026-10-17. The rewrite dropped every file of 500 KB or more that no branch held, the scenes
-among them, so neither `fetch-source.sh` nor `release.yml` can rebuild these archives. They stay as
-published, and their `source` records where they were packed from. A new asset needs a source that
-still exists: a public commit that holds its files, often the author's own repository.
-
-## Releasing
-
-One release per asset version, tag `<name>-v<N>`, carrying `<name>.tar.xz`, `<name>.asset.json`
-and `SHA256SUMS`, at `https://github.com/Kataglyphis/AssetANT/releases/download/<name>-v<N>/<name>.tar.xz`.
-Per asset rather than one bundle, so a consumer's lock moves one line when one asset changes,
-no release is ever edited or carries an unchanged copy, and the tag names exactly what it holds.
-
-```bash
-bash scripts/fetch-source.sh <name> .work/src          # or any checkout of source.repository at source.commit
-bash scripts/pack.sh --record .work/src/Resources dist <name>   # writes sha256 and unpacked into asset.json
-python3 -I scripts/check.py
-git commit -am "<name>: v<N>" && git tag <name>-v<N> && git push origin develop <name>-v<N>
-```
-
-`release.yml` then repacks the asset from its pinned source on an `ubuntu-26.04` runner (no container) and publishes it only
-when the archive hashes to `asset.json`'s `sha256`. A release that already exists is checked, never
-replaced. To publish by hand instead, from the same files:
-
-```bash
-bash scripts/release-files.sh <Resources dir> <name> dist
-gh release create <name>-v<N> dist/<name>-v<N>/* --title <name>-v<N> --notes-file dist/<name>-v<N>.md
-```
-
-## Adding or changing an asset
-
-1. Its files must sit in a public commit: `source` names the repository, commit and directory
-   (`Resources/...`, as `pack.sh` takes a `Resources` directory).
-2. Write `assets/<name>/asset.json` with every field. `license` and `attribution` are what can be
-   shown, from a license file, the files' own headers or the place they came from, and `unknown`
-   otherwise, never a guess; `notes` says how it was established.
-3. `pack.sh --record`, then release it as above. A changed asset is `version` + 1 and a new tag; a
-   published archive is never replaced, because every consumer's lock pins its hash.
-4. Add it to the table above.
-
-## Using an asset
-
-Pin the archive in a lock file, one line per asset, `<sha256>  <file>  <url>` (the format of
-OxidANT's `models.lock`), and check the hash after every download. BeschleunigerBallett's
-`Resources/assets.lock` and `cmake/FetchAssets.cmake` are the reference: the configure downloads
-through a per-user cache keyed by the hash, extracts into `Resources/Models`, and leaves a stamp so
-the next configure does nothing.
-
-## License
-
-The scripts and metadata in this repository are MIT-licensed (`LICENSE`). Every asset is under its
-own license, in the table above, its `asset.json` and its archive's `ATTRIBUTION.txt`.
+AssetANT is one of the [Kataglyphis repositories](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/repository-family.md),
+which share one way to contribute and one contact. Licence: the scripts and metadata are MIT,
+see [LICENSE](LICENSE). Every asset is under its own license, in the table above, its
+`asset.json` and its archive's `ATTRIBUTION.txt`.
