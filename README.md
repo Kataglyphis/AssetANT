@@ -29,7 +29,7 @@ does the same for the family's machine-learning models.
 - **Never replaced**: a changed asset is a new version, and `release.yml` checks a published release instead of overwriting it.
 - **The credit travels with the files**: every archive carries `ATTRIBUTION.txt`, written from its `asset.json`.
 - **No license is guessed**: what was not found is `unknown`, and `notes` says how each one was established.
-- **Checked on every push**: `scripts/check.py` validates every `asset.json` and that the table below lists it.
+- **Checked on every push**: `scripts/check.sh` validates every `asset.json` and that the table below lists it, in the family image.
 
 ## The assets
 
@@ -63,7 +63,9 @@ Stanford scans may not be used commercially without Stanford's permission.
 ```bash
 git clone --branch develop https://github.com/Kataglyphis/AssetANT.git
 cd AssetANT
-python3 -I scripts/check.py   # every asset.json is complete, and the table above lists it
+# Every asset.json is complete and the table above lists it, on the family image's pinned CPython.
+docker run --rm -v "$PWD:/workspace" -w /workspace \
+  ghcr.io/kataglyphis/kataglyphis_beschleuniger:latest bash scripts/check.sh
 ```
 
 A consumer does not clone this: it pins each archive's URL and SHA-256 in a lock and fetches it

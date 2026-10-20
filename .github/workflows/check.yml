@@ -1,4 +1,4 @@
-# Every push and PR: each asset.json is complete and well-formed, and the scripts pass shellcheck.
+# Every push and PR: each asset.json is complete and well-formed, and the scripts pass shellcheck, on the image's pinned CPython.
 name: Check
 
 on:
@@ -12,12 +12,17 @@ permissions:
 jobs:
   check:
     runs-on: ubuntu-26.04
-    timeout-minutes: 10
+    # Almost all of it is the image pull (owner 2026-10-20: the image's Python, not the runner's).
+    timeout-minutes: 45
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      # No `image:` here or below: the actions default it from the hub's versions.env, its one owner.
+      - name: Prepare CI host
+        uses: Kataglyphis/ANTfrastructure/.github/actions/prepare-linux-ci-host@develop
+        with:
+          fetch-depth: '1'
+          submodules: 'false'
 
-      - name: Validate every asset.json
-        run: python3 -I scripts/check.py
-
-      - name: Shellcheck the scripts
-        run: shellcheck scripts/*.sh
+      - name: Validate every asset.json, shellcheck the scripts
+        uses: Kataglyphis/ANTfrastructure/.github/actions/run-in-linux-container@develop
+        with:
+          script: bash scripts/check.sh

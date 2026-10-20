@@ -13,7 +13,8 @@ contract, in ANTfrastructure's
 | `scripts/pack.sh` | `pack.sh [--record] <Resources dir> <out dir> [name ...]`: one reproducible archive per asset plus `SHA256SUMS`; fails when an archive does not hash to its `asset.json` |
 | `scripts/fetch-source.sh` | `fetch-source.sh <name> <dir>`: a sparse, blob-less checkout of the commit `source` pins, with only that directory |
 | `scripts/release-files.sh` | `release-files.sh <Resources dir> <name> <out dir>`: a release's files in `<out>/<name>-v<N>/`, its notes in `<out>/<name>-v<N>.md` |
-| `scripts/check.py` | Validates every `asset.json` and that the README's asset table lists it; `check.yml` runs it with shellcheck on every push |
+| `scripts/check.py` | Validates every `asset.json` and that the README's asset table lists it |
+| `scripts/check.sh` | The push check (`check.yml`): `check.py` on the family Linux image's pinned CPython, then shellcheck over `scripts/*.sh`; anywhere else it stops (owner, 2026-10-20: the image's Python, not the runner's, at the price of the image pull) |
 | `.github/workflows/release.yml` | A tag `<name>-v<N>` packs that asset from its pinned source and publishes the release |
 
 ## An archive
@@ -45,7 +46,7 @@ ever edited or carries an unchanged copy, and the tag names exactly what it hold
 ```bash
 bash scripts/fetch-source.sh <name> .work/src          # or any checkout of source.repository at source.commit
 bash scripts/pack.sh --record .work/src/Resources dist <name>   # writes sha256 and unpacked into asset.json
-python3 -I scripts/check.py
+docker run --rm -v "$PWD:/workspace" -w /workspace ghcr.io/kataglyphis/kataglyphis_beschleuniger:latest bash scripts/check.sh
 git commit -am "<name>: v<N>" && git tag <name>-v<N> && git push origin develop <name>-v<N>
 ```
 
