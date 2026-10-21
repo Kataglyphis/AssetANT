@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://jonasheinle.de">
-    <img src="https://raw.githubusercontent.com/Kataglyphis/ANTfrastructure/develop/images/logo.png" alt="logo" width="200" />
+    <img src="https://raw.githubusercontent.com/Kataglyphis/AssetANT/develop/images/logo.svg" alt="AssetANT logo: an ant in the Cornell box" width="200" />
   </a>
 
   <h1>AssetANT</h1>
