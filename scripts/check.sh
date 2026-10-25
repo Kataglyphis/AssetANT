@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-# Every asset.json is valid and listed, and every script passes shellcheck, on the image's pinned CPython (check.yml runs it).
-# Usage: scripts/check.sh   (in the family's Linux image)
+# The image's pinned CPython is the consumer runtime.
 set -euo pipefail
 
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -14,5 +13,6 @@ python=/opt/venv/bin/python3
 printf 'python: %s\n' "$("${python}" --version)"
 
 "${python}" -I scripts/check.py
+"${python}" -I -m unittest discover -s scripts/tests -p 'test_*.py'
 shellcheck scripts/*.sh
 printf 'check: ok\n'

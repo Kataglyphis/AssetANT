@@ -1,5 +1,4 @@
-# A tag <name>-v<N> packs assets/<name> from the commit its asset.json pins and publishes that release.
-# The archive must hash to asset.json's sha256, so a release never differs from the consumers' locks.
+# Pin each release to asset.json so its archive matches consumer locks.
 name: Release an asset
 
 on:

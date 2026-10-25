@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
-# Packs each asset's source directory into one reproducible <name>.tar.xz and writes SHA256SUMS.
-# Usage: scripts/pack.sh [--record] <BB Resources dir> <out dir> [name ...]
-#   No name packs every assets/<name>. An archive whose SHA-256 differs from its asset.json fails,
-#   unless --record writes the new hash and unpacked size into asset.json.
-# Needs GNU tar, xz, jq and sha256sum.
+# The archive hash must match asset.json unless --record refreshes its pin.
 set -euo pipefail
 
 usage() {

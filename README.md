@@ -82,6 +82,8 @@ at build time, as [docs/assets.md](docs/assets.md#using-an-asset) shows.
 | Adding or changing an asset | [docs/assets.md](docs/assets.md#adding-or-changing-an-asset) |
 | Using an asset in a consumer | [docs/assets.md](docs/assets.md#using-an-asset) |
 | Why scenes live outside the code, and the lock every consumer keeps | [ANTfrastructure: `data-repositories.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/data-repositories.md) |
+| CI quality reports, Ruff/ty and refactor previews | [Shared quality tooling](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/code-quality-tooling.md) |
+| Changes | [CHANGELOG.md](CHANGELOG.md) |
 
 ## Contributing and contact
 

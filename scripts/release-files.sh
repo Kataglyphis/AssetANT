@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
-# Makes one asset's release: <out>/<name>-v<version>/ holds what to upload, <out>/<name>-v<version>.md its notes.
-# Usage: scripts/release-files.sh <BB Resources dir> <name> <out dir>
-# The archive must hash to asset.json's sha256 (scripts/pack.sh checks), so a release never differs from the locks.
+# Release payloads must preserve the archive hash pinned by asset.json.
 set -euo pipefail
 
 [[ $# -eq 3 ]] || { printf 'usage: %s <BB Resources dir> <name> <out dir>\n' "$0" >&2; exit 2; }

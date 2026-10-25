@@ -1,2 +1,5 @@
 dist/
 .work/
+
+/logs/
+__pycache__/

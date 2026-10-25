@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
-# Checks out an asset's source directory at the commit its asset.json pins, fetching only that directory's blobs.
-# Usage: scripts/fetch-source.sh <name> <dir>   then: scripts/pack.sh <dir>/Resources <out> <name>
-# A second name into the same <dir> must pin the same repository and commit; it widens the checkout.
+# A reused checkout must preserve the repository and commit pinned by asset.json.
 set -euo pipefail
 
 [[ $# -eq 2 ]] || { printf 'usage: %s <name> <dir>\n' "$0" >&2; exit 2; }
