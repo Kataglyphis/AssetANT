@@ -19,12 +19,13 @@ contract, in ANTfrastructure's
 
 ## Dependency updates
 
-From Linux or WSL, initialize the recorded `third_party/ANTfrastructure` submodule and run
-`bash scripts/renovate-local.sh --apply` from this checkout. The thin wrapper uses this repo's
+From Linux or WSL, run `bash scripts/renovate-local.sh --apply` from this checkout. The thin
+wrapper initializes the recorded hub submodule if absent, then uses this repo's
 `.github/renovate.json` and the hub's pinned Renovate driver to update supported dependencies,
-including GitHub Actions and submodule gitlinks. Run without `--apply` for a report, or use
-`--apply --dry-run` to verify the plan without writing. The driver reports a refusal if it cannot
-safely complete an update; its exit status must be checked.
+including GitHub Actions and direct submodule gitlinks. Report and `--apply --dry-run` do not
+initialize the hub; initialize it explicitly or provide an existing checkout before those
+read-only calls. The driver reports a refusal if it cannot safely complete an update; its exit
+status must be checked.
 
 The `source.commit` and archive checksum in each `asset.json` describe the exact bytes released.
 Changing them requires fetching the source, packing, recording its new hash and passing

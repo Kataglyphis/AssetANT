@@ -71,10 +71,10 @@ docker run --rm -v "$PWD:/workspace" -w /workspace \
 A consumer does not clone this: it pins each archive's URL and SHA-256 in a lock and fetches it
 at build time, as [docs/assets.md](docs/assets.md#using-an-asset) shows.
 
-To refresh this repo's tool, workflow and submodule dependencies from Linux or WSL, initialize
-`third_party/ANTfrastructure` and run `bash scripts/renovate-local.sh --apply`. Run without
-`--apply` to see the report, or use `--apply --dry-run` to check the exact plan. Asset source
-commits and archive checksums follow the separate verification steps in [docs/assets.md](docs/assets.md#dependency-updates).
+To refresh this repo's tool, workflow and submodule dependencies from Linux or WSL, run
+`bash scripts/renovate-local.sh --apply`; it initializes a missing pinned hub. For a report or
+`--apply --dry-run`, first initialize the hub or use an existing checkout. Asset source commits
+and archive checksums follow [docs/assets.md](docs/assets.md#dependency-updates).
 
 ## Documentation
 
