@@ -14,5 +14,5 @@ printf 'python: %s\n' "$("${python}" --version)"
 
 "${python}" -I scripts/check.py
 "${python}" -I -m unittest discover -s scripts/tests -p 'test_*.py'
-shellcheck scripts/*.sh
+shellcheck -x -P scripts scripts/*.sh scripts/lib/*.sh
 printf 'check: ok\n'

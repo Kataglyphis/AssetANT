@@ -14,8 +14,21 @@ contract, in ANTfrastructure's
 | `scripts/fetch-source.sh` | `fetch-source.sh <name> <dir>`: a sparse, blob-less checkout of the commit `source` pins, with only that directory |
 | `scripts/release-files.sh` | `release-files.sh <Resources dir> <name> <out dir>`: a release's files in `<out>/<name>-v<N>/`, its notes in `<out>/<name>-v<N>.md` |
 | `scripts/check.py` | Validates every `asset.json` and that the README's asset table lists it |
-| `scripts/check.sh` | The push check (`check.yml`): `check.py` on the family Linux image's pinned CPython, then shellcheck over `scripts/*.sh`; anywhere else it stops (owner, 2026-10-20: the image's Python, not the runner's, at the price of the image pull) |
+| `scripts/check.sh` | The push check (`check.yml`): `check.py` on the family Linux image's pinned CPython, then shellcheck over the root scripts and their bootstrap; anywhere else it stops (owner, 2026-10-20: the image's Python, not the runner's, at the price of the image pull) |
 | `.github/workflows/release.yml` | A tag `<name>-v<N>` packs that asset from its pinned source and publishes the release |
+
+## Dependency updates
+
+From Linux or WSL, initialize the recorded `third_party/ANTfrastructure` submodule and run
+`bash scripts/renovate-local.sh --apply` from this checkout. The thin wrapper uses this repo's
+`.github/renovate.json` and the hub's pinned Renovate driver to update supported dependencies,
+including GitHub Actions and submodule gitlinks. Run without `--apply` for a report, or use
+`--apply --dry-run` to verify the plan without writing. The driver reports a refusal if it cannot
+safely complete an update; its exit status must be checked.
+
+The `source.commit` and archive checksum in each `asset.json` describe the exact bytes released.
+Changing them requires fetching the source, packing, recording its new hash and passing
+`scripts/check.sh` and release verification. A general dependency bump cannot infer those bytes.
 
 ## An archive
 
