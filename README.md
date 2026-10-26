@@ -29,7 +29,7 @@ does the same for the family's machine-learning models.
 - **Never replaced**: a changed asset is a new version, and `release.yml` checks a published release instead of overwriting it.
 - **The credit travels with the files**: every archive carries `ATTRIBUTION.txt`, written from its `asset.json`.
 - **No license is guessed**: what was not found is `unknown`, and `notes` says how each one was established.
-- **Checked on every push**: `scripts/check.sh` validates every `asset.json` and that the table below lists it, in the family image.
+- **Checked on every push**: `scripts/check.sh` validates every `asset.json` and that the table below lists it, then ShellChecks the scripts and their shared bootstrap, in the family image.
 
 ## The assets
 

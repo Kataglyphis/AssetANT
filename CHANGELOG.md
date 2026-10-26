@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Search both script directories when ShellCheck follows the shared Renovate bootstrap companion.
 - Keep the copied Renovate bootstrap within strict complexity and trailing-return limits in CI.
 - Use the shared Windows Git selector when a WSL Renovate apply bootstraps the pinned hub;
   sync its exact copied helper alongside the bootstrap.
