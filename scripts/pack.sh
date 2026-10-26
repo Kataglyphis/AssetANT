@@ -18,6 +18,8 @@ out="$2"
 shift 2
 
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+# shellcheck source=lib/asset-spec.sh
+source "${root}/scripts/lib/asset-spec.sh"
 [[ -d "${resources}" ]] || { printf 'no directory %s\n' "${resources}" >&2; exit 2; }
 mkdir -p "${out}"
 out="$(cd "${out}" && pwd)"
@@ -50,8 +52,7 @@ write_attribution() {
 
 packed=()
 for name in "${names[@]}"; do
-  spec="${root}/assets/${name}/asset.json"
-  [[ -f "${spec}" ]] || { printf 'no %s\n' "${spec}" >&2; exit 2; }
+  spec="$(asset_spec_require "${name}")" || exit $?
   path="$(jq -r '.source.path' "${spec}")"
   file="$(jq -r '.file' "${spec}")"
   [[ "${path}" == Resources/* ]] || { printf '%s: source.path %s is not under Resources/\n' "${name}" "${path}" >&2; exit 1; }

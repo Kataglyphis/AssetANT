@@ -6,9 +6,9 @@ set -euo pipefail
 name="$1"
 dir="$2"
 
-root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-spec="${root}/assets/${name}/asset.json"
-[[ -f "${spec}" ]] || { printf 'no %s\n' "${spec}" >&2; exit 2; }
+# shellcheck source=lib/asset-spec.sh
+source "$(dirname "${BASH_SOURCE[0]}")/lib/asset-spec.sh"
+spec="$(asset_spec_require "${name}")" || exit $?
 repo="$(jq -r '.source.repository' "${spec}")"
 commit="$(jq -r '.source.commit' "${spec}")"
 path="$(jq -r '.source.path' "${spec}")"

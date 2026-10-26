@@ -1,4 +1,4 @@
-# Every push and PR: each asset.json is complete and well-formed, and the scripts pass shellcheck, on the image's pinned CPython.
+# Asset checks use the family image; the companion lint workflow grades every tracked shell script.
 name: Check
 
 on:
@@ -20,9 +20,9 @@ jobs:
         uses: Kataglyphis/ANTfrastructure/.github/actions/prepare-linux-ci-host@develop
         with:
           fetch-depth: '1'
-          submodules: 'false'
+          submodules: 'true'
 
-      - name: Validate every asset.json, shellcheck the scripts
+      - name: Validate asset metadata and regression tests
         uses: Kataglyphis/ANTfrastructure/.github/actions/run-in-linux-container@develop
         with:
           script: bash scripts/check.sh

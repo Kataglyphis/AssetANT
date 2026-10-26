@@ -29,7 +29,7 @@ does the same for the family's machine-learning models.
 - **Never replaced**: a changed asset is a new version, and `release.yml` checks a published release instead of overwriting it.
 - **The credit travels with the files**: every archive carries `ATTRIBUTION.txt`, written from its `asset.json`.
 - **No license is guessed**: what was not found is `unknown`, and `notes` says how each one was established.
-- **Checked on every push**: `scripts/check.sh` validates every `asset.json` and that the table below lists it, then ShellChecks the scripts and their shared bootstrap, in the family image.
+- **Checked on every push**: `scripts/check.sh` validates every `asset.json` and the Bash spec contract in the family image; ANTfrastructure's lint workflow checks every tracked shell script and rejects duplicated blocks.
 
 ## The assets
 
@@ -63,6 +63,7 @@ Stanford scans may not be used commercially without Stanford's permission.
 ```bash
 git clone --branch develop https://github.com/Kataglyphis/AssetANT.git
 cd AssetANT
+git submodule update --init third_party/ANTfrastructure
 # Every asset.json is complete and the table above lists it, on the family image's pinned CPython.
 docker run --rm -v "$PWD:/workspace" -w /workspace \
   ghcr.io/kataglyphis/kataglyphis_beschleuniger:latest bash scripts/check.sh
@@ -85,10 +86,10 @@ and archive checksums follow [docs/assets.md](docs/assets.md#dependency-updates)
 | What an archive holds, and why its bytes are reproducible | [docs/assets.md](docs/assets.md#an-archive) |
 | Why the first 14 archives cannot be repacked | [docs/assets.md](docs/assets.md#the-first-14-are-not-repacked) |
 | Releasing an asset | [docs/assets.md](docs/assets.md#releasing) |
-| Adding or changing an asset | [docs/assets.md](docs/assets.md#adding-or-changing-an-asset) |
+| Adding or changing an asset; code reuse rules | [docs/assets.md](docs/assets.md#adding-or-changing-an-asset), [AGENTS.md](AGENTS.md) |
 | Using an asset in a consumer | [docs/assets.md](docs/assets.md#using-an-asset) |
 | Why scenes live outside the code, and the lock every consumer keeps | [ANTfrastructure: `data-repositories.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/data-repositories.md) |
-| CI quality reports, Ruff/ty and refactor previews | [Shared quality tooling](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/code-quality-tooling.md) |
+| CI quality reports, strict duplication checks, Ruff/ty and refactor previews | [Shared quality tooling](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/code-quality-tooling.md) |
 | Changes | [CHANGELOG.md](CHANGELOG.md) |
 
 ## Contributing and contact

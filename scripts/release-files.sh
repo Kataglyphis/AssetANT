@@ -8,8 +8,9 @@ name="$2"
 out="$3"
 
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-spec="${root}/assets/${name}/asset.json"
-[[ -f "${spec}" ]] || { printf 'no %s\n' "${spec}" >&2; exit 2; }
+# shellcheck source=lib/asset-spec.sh
+source "${root}/scripts/lib/asset-spec.sh"
+spec="$(asset_spec_require "${name}")" || exit $?
 tag="${name}-v$(jq -r '.version' "${spec}")"
 file="$(jq -r '.file' "${spec}")"
 dir="${out}/${tag}"

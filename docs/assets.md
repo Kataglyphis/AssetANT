@@ -13,11 +13,19 @@ contract, in ANTfrastructure's
 | `scripts/pack.sh` | `pack.sh [--record] <Resources dir> <out dir> [name ...]`: one reproducible archive per asset plus `SHA256SUMS`; fails when an archive does not hash to its `asset.json` |
 | `scripts/fetch-source.sh` | `fetch-source.sh <name> <dir>`: a sparse, blob-less checkout of the commit `source` pins, with only that directory |
 | `scripts/release-files.sh` | `release-files.sh <Resources dir> <name> <out dir>`: a release's files in `<out>/<name>-v<N>/`, its notes in `<out>/<name>-v<N>.md` |
+| `scripts/lib/asset-spec.sh` | One asset-specific path and missing-file verdict shared by fetch, pack and release |
 | `scripts/check.py` | Validates every `asset.json` and that the README's asset table lists it |
-| `scripts/check.sh` | The push check (`check.yml`): `check.py` on the family Linux image's pinned CPython, then shellcheck over the root scripts and their bootstrap, with both script directories in ShellCheck's source path; anywhere else it stops (owner, 2026-10-20: the image's Python, not the runner's, at the price of the image pull) |
+| `scripts/check.sh` | The push check (`check.yml`): `check.py`, Python tests and the asset-spec fixture/mutation suite on the family image's pinned CPython; ANTfrastructure's `ci_image_python_require` rejects a host interpreter |
+| `.github/workflows/lint-gates.yml` | ANTfrastructure's pinned ShellCheck, warning ratchet and strict duplication gate over tracked code on every push and pull request |
 | `.github/workflows/release.yml` | A tag `<name>-v<N>` packs that asset from its pinned source and publishes the release |
 
+Initialize `third_party/ANTfrastructure` before running `scripts/check.sh` in a fresh checkout;
+the CI check initializes it through the shared host-preparation action.
+
 ## Dependency updates
+
+Before adding script or workflow functionality, search this repository and its ANTfrastructure
+submodule and follow [AGENTS.md](../AGENTS.md)'s reuse rule.
 
 From Linux or WSL, run `bash scripts/renovate-local.sh --apply` from this checkout. The thin
 wrapper initializes the recorded hub submodule if absent, then uses this repo's
