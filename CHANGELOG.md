@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- Keep the copied Renovate bootstrap within the strict complexity limit used by CI.
+- Keep the copied Renovate bootstrap within strict complexity and trailing-return limits in CI.
 - Use the shared Windows Git selector when a WSL Renovate apply bootstraps the pinned hub;
   sync its exact copied helper alongside the bootstrap.
 - Bootstrap a missing pinned ANTfrastructure checkout during a real Renovate apply and update
