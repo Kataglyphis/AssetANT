@@ -24,7 +24,8 @@ wrapper initializes the recorded hub submodule if absent, then uses this repo's
 `.github/renovate.json` and the hub's pinned Renovate driver to update supported dependencies,
 including GitHub Actions and direct submodule gitlinks. Report and `--apply --dry-run` do not
 initialize the hub; initialize it explicitly or provide an existing checkout before those
-read-only calls. The driver reports a refusal if it cannot safely complete an update; its exit
+read-only calls. A Windows-authored WSL checkout uses the copied Git mode helper during that
+bootstrap. The driver reports a refusal if it cannot safely complete an update; its exit
 status must be checked.
 
 The `source.commit` and archive checksum in each `asset.json` describe the exact bytes released.
