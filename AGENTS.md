@@ -13,6 +13,8 @@ when it exists, and pass AssetANT-specific values from this repository. Follow t
 either requires fetching the pinned source, packing the archive, and verifying the new bytes;
 Renovate cannot infer them. The first 14 archives cannot be rebuilt from the rewritten source
 history, and a published release must never be replaced. See [docs/assets.md](docs/assets.md).
+When `prior-release.lock` is present, reuse the hub's checksum-verified extractor and preserve
+the old payload; package tracked `licenses/` and fail on destination conflicts.
 
 `bash scripts/check.sh` runs metadata, Python and Bash regression tests in the family Linux image
 after `third_party/ANTfrastructure` is initialized. The shared lint workflow checks tracked shell

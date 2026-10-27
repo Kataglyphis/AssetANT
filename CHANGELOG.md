@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Establish JurassicPark's CC BY 4.0 provenance from matching source geometry and include the official license in a new, reproducible v2 archive.
 - Share asset-spec lookup across fetch, pack and release, test its path and missing-file contract
   with a mutation, and make the shared duplication gate fatal with no exceptions.
 - Add agent rules that require repository and ANTfrastructure reuse before writing Bash or

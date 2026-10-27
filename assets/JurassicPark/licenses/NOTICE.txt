@@ -1,0 +1,16 @@
+Mosquito in amber by Loïc Norgeot, using a mosquito scan by Geoffrey Marchal.
+Original model: https://sketchfab.com/models/53a61d58c09b4d2ab30e269aa3e22078
+Original model's official metadata: https://api.sketchfab.com/v3/models/53a61d58c09b4d2ab30e269aa3e22078
+License: Creative Commons Attribution 4.0 International, https://creativecommons.org/licenses/by/4.0/
+The complete official license text is in CC-BY-4.0.txt.
+Source: https://creativecommons.org/licenses/by/4.0/legalcode.txt
+Source SHA-256: 9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411
+The only change is removal of trailing empty lines (shipped SHA-256:
+9e5f1b3c610b9c2da5c313bf81d577a7d1acec686bdb0384edefa6df0f90cd94).
+
+This archive carries the earlier Blender 3.1.2 OBJ/MTL conversion of the model.
+The three object/material names, 14,349 triangles and all 10,140 unique positions
+match the Khronos comparison model after axis conversion within 0.000002 units.
+Khronos comparison: https://github.com/KhronosGroup/glTF-Sample-Assets/tree/5bad5aaa0bbb5d0f9cdc934e626f27d0df1e79b8/Models/MosquitoInAmber
+Comparison GLB SHA-256: 1c0b49000650e8a8c00d69bc8d64e46d33527871a47d74e4f2278887325cc35f
+The unchanged payload came from the SHA-256-pinned JurassicPark-v1 release.

@@ -12,6 +12,16 @@ spec="$(asset_spec_require "${name}")" || exit $?
 repo="$(jq -r '.source.repository' "${spec}")"
 commit="$(jq -r '.source.commit' "${spec}")"
 path="$(jq -r '.source.path' "${spec}")"
+lock="$(dirname "${spec}")/prior-release.lock"
+
+if [[ -f "${lock}" ]]; then
+  # shellcheck source=lib/antfrastructure.sh
+  source "$(dirname "${BASH_SOURCE[0]}")/lib/antfrastructure.sh"
+  # shellcheck source=lib/prior-release.sh
+  source "$(dirname "${BASH_SOURCE[0]}")/lib/prior-release.sh"
+  asset_fetch_prior_release "${name}" "${dir}" "${path}" "${lock}"
+  exit 0
+fi
 
 if [[ -d "${dir}/.git" ]]; then
   have="$(git -C "${dir}" remote get-url origin)"

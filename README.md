@@ -42,7 +42,7 @@ does the same for the family's machine-learning models.
 | `CornellBox` | Eight Cornell Box scenes | CC BY 3.0 | 0.1 MiB | 1.1 MiB | `CornellBox-v1` |
 | `crytek-sponza` | Crytek's Sponza atrium, textured | CC BY 3.0 | 27.7 MiB | 47.2 MiB | `crytek-sponza-v1` |
 | `Dinosaurs` | Two dinosaur skeletons on a ground plane | unknown | 3.8 MiB | 26.0 MiB | `Dinosaurs-v1` |
-| `JurassicPark` | A mosquito in amber | unknown | 0.4 MiB | 1.5 MiB | `JurassicPark-v1` |
+| `JurassicPark` | A mosquito in amber | CC BY 4.0 | 0.4 MiB | 1.5 MiB | `JurassicPark-v2` |
 | `mori_knob` | Yasutoshi Mori's material test orb | CC BY 4.0 | 0.1 MiB | 0.9 MiB | `mori_knob-v1` |
 | `Pillum` | Small textured scene 'PilumPainting' | unknown | 0.6 MiB | 0.6 MiB | `Pillum-v1` |
 | `sibenik` | Sibenik cathedral interior, textured | CC BY-NC | 1.5 MiB | 5.9 MiB | `sibenik-v1` |
@@ -50,8 +50,8 @@ does the same for the family's machine-learning models.
 | `StanfordDragon` | Stanford's Chinese dragon scan | Stanford 3D Scanning Repository | 11.1 MiB | 69.0 MiB | `StanfordDragon-v1` |
 | `Sulo` | A grandfather clock, a wine glass and a sword, with their Blender source | by [Sulo456](https://github.com/Sulo456), with his permission | 51.2 MiB | 217.3 MiB | `Sulo-v1` |
 
-Each `assets/<name>/asset.json` says how its license was established. **Four are `unknown`**
-(`Ajax`, `Dinosaurs`, `JurassicPark`, `Pillum`): no license or credit file came with them and
+Each `assets/<name>/asset.json` says how its license was established. **Three are `unknown`**
+(`Ajax`, `Dinosaurs`, `Pillum`): no license or credit file came with them and
 none was found. Their notes record what the files themselves hint at; settle each before relying
 on it. `Sulo` was modelled by [Sulo456](https://github.com/Sulo456), a professional 3D artist,
 and is published here with his permission (2026-10-17); it carries no open license, so reuse

@@ -1,20 +1,20 @@
 {
   "name": "JurassicPark",
-  "version": 1,
+  "version": 2,
   "file": "JurassicPark.tar.xz",
-  "sha256": "496046c4bef97177da619ce1e6dde8d4e840a06fce30f543cc5f23410d765775",
+  "sha256": "8b4a9139434982f879eefb58b0f4c118f99b4bdfb6195176906f0557bb8e96c7",
   "summary": "A mosquito in amber with amber splinters, 14,349 triangles (Blender 3.1.2 export).",
-  "license": "unknown",
-  "attribution": "unknown",
-  "origin": null,
-  "notes": "No license or credit file came with it.",
+  "license": "CC BY 4.0",
+  "attribution": "Loïc Norgeot; mosquito scan by Geoffrey Marchal",
+  "origin": "https://sketchfab.com/models/53a61d58c09b4d2ab30e269aa3e22078",
+  "notes": "The OBJ matches the original model's geometry and the Khronos comparison; prior-release.lock preserves the v1 payload and LICENSES records the full terms and provenance.",
   "source": {
     "repository": "https://github.com/Kataglyphis/BeschleunigerBallett",
     "commit": "c610c76fc0069604ff0f1e58051e0c2ac26e0cb1",
     "path": "Resources/Models/JurassicPark"
   },
   "unpacked": {
-    "files": 3,
-    "bytes": 1582565
+    "files": 5,
+    "bytes": 1602699
   }
 }

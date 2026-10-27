@@ -1,0 +1,18 @@
+[
+  {
+    "id": "prior-release.fetches-verified-archive",
+    "target": "scripts/fetch-source.sh",
+    "find": "if [[ -f \"${lock}\" ]]; then",
+    "replace": "if false; then",
+    "test": "bash scripts/tests/test-prior-release.sh",
+    "why": "A declared prior release must be fetched through the shared verifier."
+  },
+  {
+    "id": "prior-release.ship-license",
+    "target": "scripts/pack.sh",
+    "find": "if [[ -d \"${license_dir}\" ]]; then",
+    "replace": "if false; then",
+    "test": "bash scripts/tests/test-prior-release.sh",
+    "why": "The built archive must contain its declared original license."
+  }
+]

@@ -10,6 +10,8 @@ contract, in ANTfrastructure's
 | Path | What |
 | --- | --- |
 | `assets/<name>/asset.json` | One asset: `name` (its directory, and the archive's top-level directory), `version` (its release is `<name>-v<version>`), `file`, `sha256` and `unpacked` (written by `pack.sh --record`), `summary`, `license`, `attribution`, `origin`, `notes`, and `source`: the repository, commit and directory it is packed from |
+| `assets/<name>/prior-release.lock` | Optional, pinned prior archive used as the reproducible source when the original Git blobs no longer exist |
+| `assets/<name>/licenses/` | Optional, verified original license texts and provenance included beside the asset |
 | `scripts/pack.sh` | `pack.sh [--record] <Resources dir> <out dir> [name ...]`: one reproducible archive per asset plus `SHA256SUMS`; fails when an archive does not hash to its `asset.json` |
 | `scripts/fetch-source.sh` | `fetch-source.sh <name> <dir>`: a sparse, blob-less checkout of the commit `source` pins, with only that directory |
 | `scripts/release-files.sh` | `release-files.sh <Resources dir> <name> <out dir>`: a release's files in `<out>/<name>-v<N>/`, its notes in `<out>/<name>-v<N>.md` |
@@ -43,7 +45,8 @@ Changing them requires fetching the source, packing, recording its new hash and 
 ## An archive
 
 `<name>.tar.xz` unpacks to `<name>/`: the source directory exactly as it is at `source.commit`,
-plus `ATTRIBUTION.txt`, written from `asset.json` so the credit travels with the files.
+plus `ATTRIBUTION.txt`, written from `asset.json` so the credit travels with the files. When
+`assets/<name>/licenses/` exists, its files travel in the archive's `LICENSES/` directory.
 
 The bytes depend on the content alone: GNU tar in `gnu` format, entries sorted by name, mtime 0,
 owner and group 0, modes 644 and 755, no xattrs or ACLs, then `xz -9` on one thread. On
@@ -58,6 +61,10 @@ rewrite of 2026-10-17. The rewrite dropped every file of 500 KB or more that no 
 scenes among them, so neither `fetch-source.sh` nor `release.yml` can rebuild these archives. They
 stay as published; their `source` records where they were packed from. A new asset needs a source
 that still exists: a public commit that holds its files, often the author's own repository.
+For a corrected successor, `prior-release.lock` can instead pin the published archive by SHA-256;
+the shared ANTfrastructure fetcher verifies and safely extracts it before the old generated
+attribution is replaced. `JurassicPark-v2` uses this path, preserving the model bytes while adding
+its newly verified original license. Its notice records the exact source and comparison evidence.
 
 ## Releasing
 

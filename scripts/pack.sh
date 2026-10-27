@@ -63,6 +63,11 @@ for name in "${names[@]}"; do
   stage="${work}/${name}"
   mkdir -p "${stage}"
   cp -R "${src}" "${stage}/${name}"
+  license_dir="${root}/assets/${name}/licenses"
+  if [[ -d "${license_dir}" ]]; then
+    [[ ! -e "${stage}/${name}/LICENSES" ]] || { printf '%s: source already has LICENSES\n' "${name}" >&2; exit 1; }
+    cp -R "${license_dir}" "${stage}/${name}/LICENSES"
+  fi
   write_attribution "${spec}" "${stage}/${name}/ATTRIBUTION.txt"
   odd="$(find "${stage}" ! -type f ! -type d)"
   [[ -z "${odd}" ]] || { printf '%s: only files and directories are packed, not:\n%s\n' "${name}" "${odd}" >&2; exit 1; }
