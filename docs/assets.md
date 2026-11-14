@@ -92,7 +92,11 @@ gh release create <name>-v<N> dist/<name>-v<N>/* --title <name>-v<N> --notes-fil
 ## Adding or changing an asset
 
 1. Its files must sit in a public commit: `source` names the repository, commit and directory
-   (`Resources/...`, as `pack.sh` takes a `Resources` directory).
+   (`Resources/...`, as `pack.sh` takes a `Resources` directory). A scene that exists nowhere
+   else may instead be **release-only**: `source` is `null`, `pack.sh` packs it from
+   `<Resources dir>/Models/<name>`, `fetch-source.sh` refuses it, and it is published by hand with
+   `release-files.sh` and `gh release create` before its tag reaches `release.yml`, which then only
+   checks the published archive's hash. Its release is the only copy of its files (`Colosseum`).
 2. Write `assets/<name>/asset.json` with every field. `license` and `attribution` are what can be
    shown, from a license file, the files' own headers or the place they came from, and `unknown`
    otherwise, never a guess; `notes` says how it was established.

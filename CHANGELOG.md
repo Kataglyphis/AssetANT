@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Add `Colosseum`, a Blender scene of the Roman Colosseum with MaterialCraft textures (CC BY 4.0,
+  Sulo456), as the first release-only asset: `source` may be `null`, `pack.sh` then packs
+  `Resources/Models/<name>`, `fetch-source.sh` refuses it and `release.yml` only verifies its
+  hand-published release.
+
 - Establish JurassicPark's CC BY 4.0 provenance from matching source geometry and include the official license in a new, reproducible v2 archive.
 - Share asset-spec lookup across fetch, pack and release, test its path and missing-file contract
   with a mutation, and make the shared duplication gate fatal with no exceptions.

@@ -49,6 +49,19 @@ t_capture_command output status bash "${fixture}/scripts/release-files.sh" \
 t_assert_eq 0 "${status}"
 t_assert_ok test -f "${work}/release output/example-v1/example.asset.json"
 
+t_case 'a release-only asset packs from Resources/Models/<name> and has nothing to fetch'
+mkdir -p "${fixture}/assets/solo" "${work}/solo res/Models/solo" || exit 1
+printf 'solo payload\n' > "${work}/solo res/Models/solo/data.txt"
+jq '.name = "solo" | .file = "solo.tar.xz" | .source = null' "${spec}" > "${fixture}/assets/solo/asset.json" || exit 1
+t_capture_command output status bash "${fixture}/scripts/fetch-source.sh" solo "${work}/solo fetched"
+t_assert_eq 1 "${status}"
+t_assert_contains "${output}" 'release-only'
+t_capture_command output status bash "${fixture}/scripts/pack.sh" --record "${work}/solo res" "${work}/solo packed" solo
+t_assert_eq 0 "${status}"
+t_capture_command output status tar -xJOf "${work}/solo packed/solo.tar.xz" solo/ATTRIBUTION.txt
+t_assert_eq 0 "${status}"
+t_assert_contains "${output}" 'Release-only: this archive is the only copy of its files.'
+
 missing="no ${fixture}/assets/absent/asset.json"
 t_case 'all three callers keep exit 2 and the exact missing-spec diagnostic'
 t_capture_command output status bash "${fixture}/scripts/fetch-source.sh" absent "${work}/unused source"

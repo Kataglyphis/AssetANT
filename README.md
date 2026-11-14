@@ -39,6 +39,7 @@ does the same for the family's machine-learning models.
 | `bmw` | Mike Pan's BMW, cleaned up by Morgan McGuire | CC0 1.0 | 2.8 MiB | 29.0 MiB | `bmw-v1` |
 | `buddha` | Stanford's Happy Buddha scan | Stanford 3D Scanning Repository | 13.9 MiB | 86.7 MiB | `buddha-v1` |
 | `bunny` | Stanford bunny scan | Stanford 3D Scanning Repository | 1.5 MiB | 12.8 MiB | `bunny-v1` |
+| `Colosseum` | The Roman Colosseum with arena show and surroundings, a Blender scene with MaterialCraft textures | CC BY 4.0 | 73.0 MiB | 302.9 MiB | `Colosseum-v1` |
 | `CornellBox` | Eight Cornell Box scenes | CC BY 3.0 | 0.1 MiB | 1.1 MiB | `CornellBox-v1` |
 | `crytek-sponza` | Crytek's Sponza atrium, textured | CC BY 3.0 | 27.7 MiB | 47.2 MiB | `crytek-sponza-v1` |
 | `Dinosaurs` | Two dinosaur skeletons on a ground plane | unknown | 3.8 MiB | 26.0 MiB | `Dinosaurs-v1` |
@@ -55,7 +56,9 @@ Each `assets/<name>/asset.json` says how its license was established. **Three ar
 none was found. Their notes record what the files themselves hint at; settle each before relying
 on it. `Sulo` was modelled by [Sulo456](https://github.com/Sulo456), a professional 3D artist,
 and is published here with his permission (2026-10-17); it carries no open license, so reuse
-beyond the Kataglyphis projects needs his consent. `sibenik` is non-commercial, and the three
+beyond the Kataglyphis projects needs his consent. `Colosseum` is release-only (`source` is
+`null`): it was never in a public commit, so its published release is the only copy of its files.
+`sibenik` is non-commercial, and the three
 Stanford scans may not be used commercially without Stanford's permission.
 
 ## Quick start

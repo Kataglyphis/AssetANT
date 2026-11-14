@@ -43,6 +43,9 @@ jobs:
           } >>"${GITHUB_OUTPUT}"
           if gh release view "${TAG}" --repo "${GITHUB_REPOSITORY}" >/dev/null 2>&1; then
             echo "published=true" >>"${GITHUB_OUTPUT}"
+          elif [[ "$(jq -r '.source == null' "${spec}")" == "true" ]]; then
+            echo "::error::${name} is release-only (source is null): publish ${TAG} by hand with release-files.sh first"
+            exit 1
           else
             echo "published=false" >>"${GITHUB_OUTPUT}"
           fi

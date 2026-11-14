@@ -46,14 +46,16 @@ write_attribution() {
     (if (.notes // "") != "" then "Notes:       \(.notes)" else empty end),
     "",
     "Packed by AssetANT (https://github.com/Kataglyphis/AssetANT, assets/\(.name)/asset.json)",
-    "from \(.source.repository) at \(.source.commit), \(.source.path)."' "${spec}" >"${target}"
+    (if .source == null then "Release-only: this archive is the only copy of its files."
+     else "from \(.source.repository) at \(.source.commit), \(.source.path)." end)' "${spec}" >"${target}"
   return 0
 }
 
 packed=()
 for name in "${names[@]}"; do
   spec="$(asset_spec_require "${name}")" || exit $?
-  path="$(jq -r '.source.path' "${spec}")"
+  # A release-only asset (source null) is packed from Resources/Models/<name>.
+  path="$(jq -r --arg name "${name}" '.source.path // "Resources/Models/\($name)"' "${spec}")"
   file="$(jq -r '.file' "${spec}")"
   [[ "${path}" == Resources/* ]] || { printf '%s: source.path %s is not under Resources/\n' "${name}" "${path}" >&2; exit 1; }
   src="${resources}/${path#Resources/}"

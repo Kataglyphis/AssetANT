@@ -9,6 +9,10 @@ dir="$2"
 # shellcheck source=lib/asset-spec.sh
 source "$(dirname "${BASH_SOURCE[0]}")/lib/asset-spec.sh"
 spec="$(asset_spec_require "${name}")" || exit $?
+if [[ "$(jq -r '.source == null' "${spec}")" == "true" ]]; then
+  printf '%s is release-only (source is null): its published release is the only copy, nothing to fetch\n' "${name}" >&2
+  exit 1
+fi
 repo="$(jq -r '.source.repository' "${spec}")"
 commit="$(jq -r '.source.commit' "${spec}")"
 path="$(jq -r '.source.path' "${spec}")"

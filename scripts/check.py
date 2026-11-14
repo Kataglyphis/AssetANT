@@ -41,6 +41,9 @@ def text_problems(doc: dict[str, Any]) -> list[str]:
 
 
 def source_problems(source: Any, name: str) -> list[str]:
+    # null: a release-only asset, published by hand; its release is the only copy of its files.
+    if source is None:
+        return []
     if not isinstance(source, dict) or list(source) != ["repository", "commit", "path"]:
         return ["source must hold repository, commit and path"]
     found = []

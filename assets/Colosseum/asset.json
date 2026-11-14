@@ -1,0 +1,16 @@
+{
+  "name": "Colosseum",
+  "version": 1,
+  "file": "Colosseum.tar.xz",
+  "sha256": "29c155ef276ce1f86d84507c611ca9e3144d4e5443a638f451dec321b1915fac",
+  "summary": "The Roman Colosseum with arena show, crowd and surroundings as a Blender 5.3 scene (665 objects), with procedural MaterialCraft textures and their source package.",
+  "license": "CC BY 4.0",
+  "attribution": "Sulo456 (https://github.com/Sulo456)",
+  "origin": null,
+  "notes": "Release-only: built in Blender with MaterialCraft materials and no imported third-party assets; the owner set the license and credit (2026-11-14). Textures load from textures/ next to Colosseum.blend.",
+  "source": null,
+  "unpacked": {
+    "files": 28,
+    "bytes": 317605240
+  }
+}

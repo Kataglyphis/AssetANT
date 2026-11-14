@@ -44,6 +44,14 @@ class AssetValidationTests(unittest.TestCase):
     def test_valid_asset_has_no_findings(self) -> None:
         self.assertEqual([], self.validate())
 
+    def test_release_only_asset_has_null_source(self) -> None:
+        self.doc["source"] = None
+        self.assertEqual([], self.validate())
+
+    def test_source_must_be_null_or_a_full_object(self) -> None:
+        self.doc["source"] = {}
+        self.assertEqual(["source must hold repository, commit and path"], self.validate())
+
     def test_nested_source_and_unpacked_errors_stay_visible(self) -> None:
         self.doc["source"]["path"] = "elsewhere/example"
         self.doc["unpacked"]["bytes"] = 0
