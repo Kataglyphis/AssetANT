@@ -569,6 +569,62 @@ def export(path, cfg):
     bpy.ops.export_scene.gltf(**{k: v for k, v in opts.items() if k in known})
 
 
+def material_meshes(scene):
+    meshes = {}
+    for ob in scene.objects:
+        if ob.type == "MESH" and not ob.hide_render:
+            for slot in ob.material_slots:
+                if slot.material:
+                    meshes.setdefault(slot.material, set()).add(ob.data)
+    return meshes
+
+
+def convert_tile(baker, mat, info, cfg, bake_dir, overrides, tile_scales):
+    src = mat.copy()
+    apply_bake_inputs(src, overrides)
+    neutralize_procedurals(src)
+    values = principled_values(src.node_tree.nodes[info["principled"]])
+    res, maps, constants = bake_tile(baker, src, mat.name, info, cfg, bake_dir)
+    bpy.data.materials.remove(src)
+    rebuild(mat, values | constants, maps)
+    tile_scales[mat.name] = (1.0 / info["tile"][0], 1.0 / info["tile"][1], 1.0 / info["floor_v"])
+    return {"tile_m": [round(x, 4) for x in info["tile"]], "res": res, "maps": sorted(maps),
+            "constants": {k: round(v, 4) for k, v in constants.items()}}
+
+
+def convert_mean(baker, mat, info):
+    values = principled_values(mat.node_tree.nodes[info["principled"]])
+    means = bake_mean(baker, mat, info)
+    for channel, mean in means.items():
+        values[channel] = [*mean, 1.0] if channel == "Base Color" else float(np.mean(mean))
+    rebuild(mat, values, {})
+    return {"means": {k: [round(x, 4) for x in (v if isinstance(v, list) else [v])] for k, v in means.items()}}
+
+
+def convert_material(baker, mat, users, cfg, bake_dir, overrides, tile_scales):
+    info = classify(mat, users, cfg)
+    entry = {"kind": info["kind"], "meshes": len(users)}
+    if info["kind"] == "tile":
+        entry |= convert_tile(baker, mat, info, cfg, bake_dir, overrides, tile_scales)
+    elif info["kind"] == "mean":
+        entry |= convert_mean(baker, mat, info)
+    elif info["kind"] == "palette":
+        entry["palette"] = palette(mat, info, users, cfg.get("palette", 32))
+    elif info["kind"] == "constant":
+        rebuild(mat, principled_values(mat.node_tree.nodes[info["principled"]]), {})
+    return entry
+
+
+def apply_box_uvs(meshes, tile_scales):
+    for me in {m for mat in meshes for m in meshes[mat]}:
+        mats = list(me.materials)
+        if not any(m and m.name in tile_scales for m in mats):
+            continue
+        scales = np.array([tile_scales.get(m.name, (0.0, 0.0, 0.0)) if m else (0.0, 0.0, 0.0) for m in mats],
+                          np.float32).reshape(-1, 3)
+        box_uvs(me, scales)
+
+
 def main():
     t0 = time.time()
     args, cfg = parse_args()
@@ -579,51 +635,17 @@ def main():
     bake_dir.mkdir(parents=True, exist_ok=True)
     scene = bpy.context.scene
     apply_render_visibility(scene, cfg.get("render_visibility", {}))
-    meshes = {}
-    for ob in scene.objects:
-        if ob.type == "MESH" and not ob.hide_render:
-            for slot in ob.material_slots:
-                if slot.material:
-                    meshes.setdefault(slot.material, set()).add(ob.data)
+    meshes = material_meshes(scene)
     report = {"blender": bpy.app.version_string, "source": blend.name, "source_sha256": sha256(blend),
               "config": cfg, "materials": {}}
     baker = bake_scene(args.device, cfg.get("samples", 16))
     overrides = cfg.get("bake_inputs", {})
     tile_scales = {}
     for mat, users in sorted(meshes.items(), key=lambda kv: kv[0].name):
-        info = classify(mat, users, cfg)
-        entry = {"kind": info["kind"], "meshes": len(users)}
-        if info["kind"] == "tile":
-            src = mat.copy()
-            apply_bake_inputs(src, overrides)
-            neutralize_procedurals(src)
-            values = principled_values(src.node_tree.nodes[info["principled"]])
-            res, maps, constants = bake_tile(baker, src, mat.name, info, cfg, bake_dir)
-            bpy.data.materials.remove(src)
-            rebuild(mat, values | constants, maps)
-            tile_scales[mat.name] = (1.0 / info["tile"][0], 1.0 / info["tile"][1], 1.0 / info["floor_v"])
-            entry |= {"tile_m": [round(x, 4) for x in info["tile"]], "res": res, "maps": sorted(maps),
-                      "constants": {k: round(v, 4) for k, v in constants.items()}}
-        elif info["kind"] == "mean":
-            values = principled_values(mat.node_tree.nodes[info["principled"]])
-            means = bake_mean(baker, mat, info)
-            for channel, mean in means.items():
-                values[channel] = [*mean, 1.0] if channel == "Base Color" else float(np.mean(mean))
-            rebuild(mat, values, {})
-            entry["means"] = {k: [round(x, 4) for x in (v if isinstance(v, list) else [v])] for k, v in means.items()}
-        elif info["kind"] == "palette":
-            entry["palette"] = palette(mat, info, users, cfg.get("palette", 32))
-        elif info["kind"] == "constant":
-            rebuild(mat, principled_values(mat.node_tree.nodes[info["principled"]]), {})
+        entry = convert_material(baker, mat, users, cfg, bake_dir, overrides, tile_scales)
         report["materials"][mat.name] = entry
         log(f"{mat.name}: {entry}")
-    for me in {m for mat in meshes for m in meshes[mat]}:
-        mats = list(me.materials)
-        if not any(m and m.name in tile_scales for m in mats):
-            continue
-        scales = np.array([tile_scales.get(m.name, (0.0, 0.0, 0.0)) if m else (0.0, 0.0, 0.0) for m in mats],
-                          np.float32).reshape(-1, 3)
-        box_uvs(me, scales)
+    apply_box_uvs(meshes, tile_scales)
     bpy.data.scenes.remove(baker)
     reduce_and_triangulate(scene, cfg)
     binary = cfg.get("gltf_options", {}).get("export_format") == "GLB"
@@ -633,6 +655,5 @@ def main():
     report["seconds"] = round(time.time() - t0, 1)
     (out / "export-report.json").write_text(json.dumps(report, indent=1), encoding="utf-8")
     log(f"done in {report['seconds']} s: {gltf}")
-
 
 main()
