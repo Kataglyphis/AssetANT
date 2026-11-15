@@ -1,0 +1,19 @@
+{
+  "bake_inputs": {
+    "Mauerwerk_Triplanar": {
+      "Schmutzmenge": 0.0
+    }
+  },
+  "brick_repeats": [
+    4,
+    4
+  ],
+  "palette": 32,
+  "samples": 16,
+  "texel_m": 0.004,
+  "min_res": 256,
+  "max_res": 2048,
+  "gltf_options": {
+    "export_copyright": "Colosseum by Sulo456 (https://github.com/Sulo456), CC BY 4.0; converted to glTF by AssetANT"
+  }
+}

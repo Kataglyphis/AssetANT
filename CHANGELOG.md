@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Add `scripts/blender/export_gltf.py`, which bakes a Blender scene's box-projected and procedural
+  materials into tiling textures and exports glTF 2.0, and with it two release-only conversions of
+  `Colosseum` under CC BY 4.0 with a NOTICE of the changes: `Colosseum-gltf` (the full scene,
+  117.3 MiB) and `Colosseum-web` (a lighter binary glTF for browsers, 17.5 MiB).
+
 - Add `Colosseum`, a Blender scene of the Roman Colosseum with MaterialCraft textures (CC BY 4.0,
   Sulo456), as the first release-only asset: `source` may be `null`, `pack.sh` then packs
   `Resources/Models/<name>`, `fetch-source.sh` refuses it and `release.yml` only verifies its

@@ -1,0 +1,16 @@
+{
+  "name": "Colosseum-gltf",
+  "version": 1,
+  "file": "Colosseum-gltf.tar.xz",
+  "sha256": "172fed54c2865711c59b5abe2622aa6db9dc2429ae03b58e71ff7ca1ca33c6fa",
+  "summary": "The Colosseum as glTF 2.0 for real-time renderers: 5.9 million triangles, 111 meshes and baked tiling textures; the default scene of BeschleunigerBallett's WebGPU renderer.",
+  "license": "CC BY 4.0",
+  "attribution": "Sulo456 (https://github.com/Sulo456)",
+  "origin": "AssetANT release Colosseum-v1, converted to glTF 2.0",
+  "notes": "Release-only: converted from Colosseum-v1 (sha256 29c155ef...) by scripts/blender/export_gltf.py with assets/Colosseum-gltf/export-gltf.json and Blender 5.3.0; LICENSES/NOTICE.txt lists the changes, export-report.json each material's treatment.",
+  "source": null,
+  "unpacked": {
+    "files": 75,
+    "bytes": 288415987
+  }
+}

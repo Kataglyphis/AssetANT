@@ -40,6 +40,8 @@ does the same for the family's machine-learning models.
 | `buddha` | Stanford's Happy Buddha scan | Stanford 3D Scanning Repository | 13.9 MiB | 86.7 MiB | `buddha-v1` |
 | `bunny` | Stanford bunny scan | Stanford 3D Scanning Repository | 1.5 MiB | 12.8 MiB | `bunny-v1` |
 | `Colosseum` | The Roman Colosseum with arena show and surroundings, a Blender scene with MaterialCraft textures | CC BY 4.0 | 73.0 MiB | 302.9 MiB | `Colosseum-v1` |
+| `Colosseum-gltf` | `Colosseum` as glTF 2.0 with baked tiling textures, for real-time renderers | CC BY 4.0 | 117.3 MiB | 275.1 MiB | `Colosseum-gltf-v1` |
+| `Colosseum-web` | A lighter glTF `Colosseum` for web browsers | CC BY 4.0 | 17.5 MiB | 58.4 MiB | `Colosseum-web-v1` |
 | `CornellBox` | Eight Cornell Box scenes | CC BY 3.0 | 0.1 MiB | 1.1 MiB | `CornellBox-v1` |
 | `crytek-sponza` | Crytek's Sponza atrium, textured | CC BY 3.0 | 27.7 MiB | 47.2 MiB | `crytek-sponza-v1` |
 | `Dinosaurs` | Two dinosaur skeletons on a ground plane | unknown | 3.8 MiB | 26.0 MiB | `Dinosaurs-v1` |
@@ -52,14 +54,11 @@ does the same for the family's machine-learning models.
 | `Sulo` | A grandfather clock, a wine glass and a sword, with their Blender source | by [Sulo456](https://github.com/Sulo456), with his permission | 51.2 MiB | 217.3 MiB | `Sulo-v1` |
 
 Each `assets/<name>/asset.json` says how its license was established. **Three are `unknown`**
-(`Ajax`, `Dinosaurs`, `Pillum`): no license or credit file came with them and
-none was found. Their notes record what the files themselves hint at; settle each before relying
-on it. `Sulo` was modelled by [Sulo456](https://github.com/Sulo456), a professional 3D artist,
-and is published here with his permission (2026-10-17); it carries no open license, so reuse
-beyond the Kataglyphis projects needs his consent. `Colosseum` is release-only (`source` is
-`null`): it was never in a public commit, so its published release is the only copy of its files.
-`sibenik` is non-commercial, and the three
-Stanford scans may not be used commercially without Stanford's permission.
+(`Ajax`, `Dinosaurs`, `Pillum`): no license or credit came with them; settle each before relying on it.
+`Sulo` is published with Sulo456's permission (2026-10-17) and carries no open license, so reuse beyond
+the Kataglyphis projects needs his consent. `sibenik` is non-commercial, and the three Stanford scans may
+not be used commercially without Stanford's permission. The three `Colosseum` assets are release-only:
+their releases are the only copy of their files ([conversion](docs/assets.md#converting-a-blender-scene-to-gltf)).
 
 ## Quick start
 
@@ -75,10 +74,8 @@ docker run --rm -v "$PWD:/workspace" -w /workspace \
 A consumer does not clone this: it pins each archive's URL and SHA-256 in a lock and fetches it
 at build time, as [docs/assets.md](docs/assets.md#using-an-asset) shows.
 
-To refresh this repo's tool, workflow and submodule dependencies from Linux or WSL, run
-`bash scripts/renovate-local.sh --apply`; it initializes a missing pinned hub. For a report or
-`--apply --dry-run`, first initialize the hub or use an existing checkout. Asset source commits
-and archive checksums follow [docs/assets.md](docs/assets.md#dependency-updates).
+To refresh this repo's tool, workflow and submodule dependencies, run `bash scripts/renovate-local.sh --apply`
+from Linux or WSL; [docs/assets.md](docs/assets.md#dependency-updates) has the details.
 
 ## Documentation
 

@@ -1,0 +1,16 @@
+{
+  "name": "Colosseum-web",
+  "version": 1,
+  "file": "Colosseum-web.tar.xz",
+  "sha256": "70add1f17c7ebd1319964f9dc8d94361add5db4475353524ba76206dd9361ed4",
+  "summary": "A lighter Colosseum for web browsers: one binary glTF with the author's low-detail crowd, 512-pixel textures and no arena net, which the WebGPU demo loads on demand.",
+  "license": "CC BY 4.0",
+  "attribution": "Sulo456 (https://github.com/Sulo456)",
+  "origin": "AssetANT release Colosseum-v1, converted to glTF 2.0",
+  "notes": "Release-only: converted from Colosseum-v1 (sha256 29c155ef...) by scripts/blender/export_gltf.py with assets/Colosseum-web/export-gltf.json and Blender 5.3.0; LICENSES/NOTICE.txt lists the changes, export-report.json each material's treatment.",
+  "source": null,
+  "unpacked": {
+    "files": 5,
+    "bytes": 61220270
+  }
+}

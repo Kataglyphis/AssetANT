@@ -1,0 +1,32 @@
+{
+  "render_visibility": {
+    "Publikum": false,
+    "Publikum_alt": true,
+    "Podium_Schutznetz": false
+  },
+  "bake_inputs": {
+    "Mauerwerk_Triplanar": {
+      "Schmutzmenge": 0.0
+    }
+  },
+  "brick_repeats": [
+    4,
+    4
+  ],
+  "palette": 16,
+  "samples": 16,
+  "texel_m": 0.008,
+  "min_res": 128,
+  "max_res": 512,
+  "jpeg_quality": 85,
+  "decimate_large": {
+    "min_triangles": 20000,
+    "ratio": 0.5
+  },
+  "smooth_decimated": false,
+  "gltf_options": {
+    "export_format": "GLB",
+    "export_tangents": false,
+    "export_copyright": "Colosseum by Sulo456 (https://github.com/Sulo456), CC BY 4.0; converted to glTF by AssetANT"
+  }
+}

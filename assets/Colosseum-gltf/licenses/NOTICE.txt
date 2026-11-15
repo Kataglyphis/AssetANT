@@ -1,0 +1,18 @@
+"Colosseum" by Sulo456 (https://github.com/Sulo456): the Roman Colosseum with arena show, crowd and
+surroundings, built in Blender with MaterialCraft materials.
+Original: AssetANT release Colosseum-v1, Colosseum.tar.xz,
+SHA-256 29c155ef276ce1f86d84507c611ca9e3144d4e5443a638f451dec321b1915fac.
+License: Creative Commons Attribution 4.0 International, https://creativecommons.org/licenses/by/4.0/
+The complete official license text is in CC-BY-4.0.txt, the same file as in this repository's
+JurassicPark asset (SHA-256 9e5f1b3c610b9c2da5c313bf81d577a7d1acec686bdb0384edefa6df0f90cd94).
+
+Changes (CC BY 4.0, section 3(a)(1)(B)): converted from Blender 5.3 to glTF 2.0 by AssetANT's
+scripts/blender/export_gltf.py with assets/Colosseum-gltf/export-gltf.json.
+- Box-projected image materials and the procedural masonry are baked into tiling textures (base
+  colour, roughness, metallic, and a normal map from the bump relief) on generated UVs; the wall
+  dirt is left out.
+- Materials made only of 3D noise are reduced to their mean colour.
+- The crowd's per-face colours are quantised to 32 materials.
+- N-gons are triangulated, and the hidden older crowd is left out.
+export-report.json records the Blender version, the source file's SHA-256 and each material's
+treatment.

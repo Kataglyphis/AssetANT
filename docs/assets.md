@@ -16,6 +16,8 @@ contract, in ANTfrastructure's
 | `scripts/fetch-source.sh` | `fetch-source.sh <name> <dir>`: a sparse, blob-less checkout of the commit `source` pins, with only that directory |
 | `scripts/release-files.sh` | `release-files.sh <Resources dir> <name> <out dir>`: a release's files in `<out>/<name>-v<N>/`, its notes in `<out>/<name>-v<N>.md` |
 | `scripts/lib/asset-spec.sh` | One asset-specific path and missing-file verdict shared by fetch, pack and release |
+| `assets/<name>/export-gltf.json` | Optional: the settings `scripts/blender/export_gltf.py` converted the asset with |
+| `scripts/blender/export_gltf.py` | Runs inside Blender: bakes a scene's box-projected and procedural materials into tiling textures and exports glTF 2.0 ([below](#converting-a-blender-scene-to-gltf)) |
 | `scripts/check.py` | Validates every `asset.json` and that the README's asset table lists it |
 | `scripts/check.sh` | The push check (`check.yml`): `check.py`, Python tests and the asset-spec fixture/mutation suite on the family image's pinned CPython; ANTfrastructure's `ci_image_python_require` rejects a host interpreter |
 | `.github/workflows/lint-gates.yml` | ANTfrastructure's pinned ShellCheck, warning ratchet and strict duplication gate over tracked code on every push and pull request |
@@ -103,6 +105,37 @@ gh release create <name>-v<N> dist/<name>-v<N>/* --title <name>-v<N> --notes-fil
 3. `pack.sh --record`, then release it as above. A changed asset is `version` + 1 and a new tag; a
    published archive is never replaced, because every consumer's lock pins its hash.
 4. Add it to the README's asset table; `check.py` fails until it is there.
+
+## Converting a Blender scene to glTF
+
+`scripts/blender/export_gltf.py` turns a Blender scene into glTF 2.0 that real-time renderers can load. It runs
+inside the Blender that saved the scene (5.3.0 for `Colosseum.blend`), headless and without auto-run scripts:
+
+```bash
+blender -b -Y Colosseum/Colosseum.blend --python scripts/blender/export_gltf.py -- \
+  --out Resources/Models/Colosseum-gltf --config assets/Colosseum-gltf/export-gltf.json --name Colosseum-gltf
+```
+
+It never saves the `.blend`. What it changes, and why:
+
+- Image textures placed by Box projection, and procedural brick materials, become tiling textures that Cycles
+  bakes (base colour, roughness, metallic and a tangent-space normal map from the bump relief), on UVs generated
+  from the same projection. A map without variation becomes a factor. `bake_inputs` overrides node-group inputs
+  for the bake: the Colosseum turns its wall dirt off, which would repeat with every tile.
+- Materials made only of 3D noise get their mean colour.
+- A per-face colour attribute becomes a palette of materials (`palette`), so faces split no vertices.
+- N-gons are triangulated in the mesh data, so linked duplicates still share one mesh and every mesh gets
+  tangents.
+- `decimate`, `decimate_large` and `render_visibility` make lighter variants: `Colosseum-web` swaps in the
+  scene's own low-detail crowd and leaves out the arena net. Collapse decimation cannot shrink a crowd built
+  from thousands of small boxes; it breaks it apart.
+- `export-report.json` beside the export records the Blender version, the source's SHA-256 and each material's
+  treatment.
+
+The bake runs on the CPU when Cycles finds no GPU; the Colosseum takes about five minutes. The output is not
+byte-reproducible across Blender builds, so a converted asset is release-only (`source` is `null`): pack it
+from `Resources/Models/<name>` with `pack.sh --record` and publish it by hand. Its `licenses/NOTICE.txt` names
+the changes, which CC BY 4.0 requires.
 
 ## Using an asset
 
