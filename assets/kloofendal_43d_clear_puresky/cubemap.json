@@ -1,0 +1,18 @@
+{
+  "hdri": {
+    "url": "https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/2k/kloofendal_43d_clear_puresky_2k.hdr",
+    "sha256": "462a3cc63bfcd9fe0299137a0f33f4ade84e237f4cb6115fe46f5ab400693fe6"
+  },
+  "face_size": 512,
+  "supersample": 4,
+  "exposure": 0.5,
+  "yaw_degrees": -86,
+  "faces": {
+    "+X": "RT.png",
+    "-X": "LF.png",
+    "+Y": "UP.png",
+    "-Y": "DN.png",
+    "+Z": "FT.png",
+    "-Z": "BK.png"
+  }
+}

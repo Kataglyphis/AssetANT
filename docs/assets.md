@@ -18,6 +18,8 @@ contract, in ANTfrastructure's
 | `scripts/lib/asset-spec.sh` | One asset-specific path and missing-file verdict shared by fetch, pack and release |
 | `assets/<name>/export-gltf.json` | Optional: the settings `scripts/blender/export_gltf.py` converted the asset with |
 | `scripts/blender/export_gltf.py` | Runs inside Blender: bakes a scene's box-projected and procedural materials into tiling textures and exports glTF 2.0 ([below](#converting-a-blender-scene-to-gltf)) |
+| `assets/<name>/cubemap.json` | Optional: the HDRI (URL and SHA-256) and settings `scripts/cubemap/equirect_to_cubemap.py` converted the asset with |
+| `scripts/cubemap/equirect_to_cubemap.py` | Six sRGB PNG cube faces from an equirectangular Radiance HDR ([below](#converting-an-hdri-to-cube-faces)) |
 | `scripts/check.py` | Validates every `asset.json` and that the README's asset table lists it |
 | `scripts/check.sh` | The push check (`check.yml`): `check.py`, Python tests and the asset-spec fixture/mutation suite on the family image's pinned CPython; ANTfrastructure's `ci_image_python_require` rejects a host interpreter |
 | `.github/workflows/lint-gates.yml` | ANTfrastructure's pinned ShellCheck, warning ratchet and strict duplication gate over tracked code on every push and pull request |
@@ -136,6 +138,26 @@ The bake runs on the CPU when Cycles finds no GPU; the Colosseum takes about fiv
 byte-reproducible across Blender builds, so a converted asset is release-only (`source` is `null`): pack it
 from `Resources/Models/<name>` with `pack.sh --record` and publish it by hand. Its `licenses/NOTICE.txt` names
 the changes, which CC BY 4.0 requires.
+
+## Converting an HDRI to cube faces
+
+`scripts/cubemap/equirect_to_cubemap.py` turns an equirectangular Radiance HDR into six sRGB PNG faces in
+Vulkan's cubemap convention (+X, -X, +Y, -Y, +Z, -Z, each face's row 0 at its top), the layout
+BeschleunigerBallett's skybox loads. Everything the bytes depend on is in `assets/<name>/cubemap.json`: the HDRI's
+URL and SHA-256 (a file that hashes otherwise is refused), the face size, the supersampling, an exposure applied
+before clipping to 1 and sRGB encoding, a yaw about +Y, and the face file names. `--stats` prints the HDRI's size,
+its peak and where it is, which places the sun for the yaw.
+
+```bash
+curl -fLo .work/sky.hdr "$(jq -r .hdri.url assets/<name>/cubemap.json)"
+python3 -I scripts/cubemap/equirect_to_cubemap.py .work/sky.hdr .work/Resources/Models/<name> assets/<name>/cubemap.json
+bash scripts/pack.sh --record .work/Resources dist <name>
+```
+
+`kloofendal_43d_clear_puresky`'s faces hashed the same in the family image (Python 3.15.2, numpy 2.5.4, Pillow
+13.0.0) and on a WSL host with other builds (2026-11-18). The HDRI sits in no repository, so the asset is still
+release-only (`source` is `null`), published by hand.
+`scripts/tests/test_equirect_to_cubemap.py` checks the orientation, the yaw, the seams and the pin on a synthetic HDR.
 
 ## Using an asset
 

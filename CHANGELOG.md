@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Add `kloofendal_43d_clear_puresky`, Greg Zaal's CC0 Poly Haven sky as six 512-pixel cube faces, release-only,
+  for BeschleunigerBallett's skybox (which replaces its unlicensed DOOM2016 faces), and
+  `scripts/cubemap/equirect_to_cubemap.py`, which converts an HDRI pinned by SHA-256 in `assets/<name>/cubemap.json`.
+
 - Add `scripts/blender/export_gltf.py`, which bakes a Blender scene's box-projected and procedural
   materials into tiling textures and exports glTF 2.0, and with it two release-only conversions of
   `Colosseum` under CC BY 4.0 with a NOTICE of the changes: `Colosseum-gltf` (the full scene,

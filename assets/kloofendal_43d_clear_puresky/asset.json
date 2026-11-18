@@ -1,0 +1,16 @@
+{
+  "name": "kloofendal_43d_clear_puresky",
+  "version": 1,
+  "file": "kloofendal_43d_clear_puresky.tar.xz",
+  "sha256": "e2e67e18b0f2e25d298c4edd1b10d75a145d65747853c3bdbd4fc3eee85f844e",
+  "summary": "A clear midday sky with a few clouds and the sun at 43 degrees, as six 512-pixel sRGB cube faces for BeschleunigerBallett's skybox.",
+  "license": "CC0 1.0 (public domain)",
+  "attribution": "Greg Zaal (Poly Haven)",
+  "origin": "https://polyhaven.com/a/kloofendal_43d_clear_puresky",
+  "notes": "Release-only: converted from Poly Haven's 2k HDR (sha256 462a3cc6...) by scripts/cubemap/equirect_to_cubemap.py with assets/kloofendal_43d_clear_puresky/cubemap.json; LICENSES/NOTICE.txt records the source and the conversion, LICENSES/CC0-1.0.txt the legal code.",
+  "source": null,
+  "unpacked": {
+    "files": 9,
+    "bytes": 558449
+  }
+}

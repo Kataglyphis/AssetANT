@@ -46,6 +46,7 @@ does the same for the family's machine-learning models.
 | `crytek-sponza` | Crytek's Sponza atrium, textured | CC BY 3.0 | 27.7 MiB | 47.2 MiB | `crytek-sponza-v1` |
 | `Dinosaurs` | Two dinosaur skeletons on a ground plane | unknown | 3.8 MiB | 26.0 MiB | `Dinosaurs-v1` |
 | `JurassicPark` | A mosquito in amber | CC BY 4.0 | 0.4 MiB | 1.5 MiB | `JurassicPark-v2` |
+| `kloofendal_43d_clear_puresky` | A clear midday sky as six cube faces, from Greg Zaal's Poly Haven HDRI | CC0 1.0 | 0.5 MiB | 0.5 MiB | `kloofendal_43d_clear_puresky-v1` |
 | `mori_knob` | Yasutoshi Mori's material test orb | CC BY 4.0 | 0.1 MiB | 0.9 MiB | `mori_knob-v1` |
 | `Pillum` | Small textured scene 'PilumPainting' | unknown | 0.6 MiB | 0.6 MiB | `Pillum-v1` |
 | `sibenik` | Sibenik cathedral interior, textured | CC BY-NC | 1.5 MiB | 5.9 MiB | `sibenik-v1` |
@@ -57,8 +58,7 @@ Each `assets/<name>/asset.json` says how its license was established. **Three ar
 (`Ajax`, `Dinosaurs`, `Pillum`): no license or credit came with them; settle each before relying on it.
 `Sulo` is published with Sulo456's permission (2026-10-17) and carries no open license, so reuse beyond
 the Kataglyphis projects needs his consent. `sibenik` is non-commercial, and the three Stanford scans may
-not be used commercially without Stanford's permission. The three `Colosseum` assets are release-only:
-their releases are the only copy of their files ([conversion](docs/assets.md#converting-a-blender-scene-to-gltf)).
+not be used commercially without Stanford's permission. The `Colosseum` assets and the sky are release-only: their releases are the only copy of their files ([conversions](docs/assets.md#converting-a-blender-scene-to-gltf)).
 
 ## Quick start
 
