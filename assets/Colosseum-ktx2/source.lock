@@ -1,0 +1,2 @@
+# The converter's input: the published Colosseum-gltf-v1, which the hub's fetch-data-lock.py checks and extracts.
+172fed54c2865711c59b5abe2622aa6db9dc2429ae03b58e71ff7ca1ca33c6fa  Colosseum-gltf.tar.xz  https://github.com/Kataglyphis/AssetANT/releases/download/Colosseum-gltf-v1/Colosseum-gltf.tar.xz

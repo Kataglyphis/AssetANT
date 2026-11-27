@@ -41,6 +41,7 @@ does the same for the family's machine-learning models.
 | `bunny` | Stanford bunny scan | Stanford 3D Scanning Repository | 1.5 MiB | 12.8 MiB | `bunny-v1` |
 | `Colosseum` | The Roman Colosseum with arena show and surroundings, a Blender scene with MaterialCraft textures | CC BY 4.0 | 73.0 MiB | 302.9 MiB | `Colosseum-v1` |
 | `Colosseum-gltf` | `Colosseum` as glTF 2.0 with baked tiling textures, for real-time renderers | CC BY 4.0 | 117.3 MiB | 275.1 MiB | `Colosseum-gltf-v1` |
+| `Colosseum-ktx2` | `Colosseum-gltf` with UASTC KTX2 textures, which GPUs sample as BC7, ETC2 or ASTC blocks | CC BY 4.0 | 118.3 MiB | 276.3 MiB | `Colosseum-ktx2-v1` |
 | `Colosseum-web` | A lighter glTF `Colosseum` for web browsers | CC BY 4.0 | 17.5 MiB | 58.4 MiB | `Colosseum-web-v1` |
 | `CornellBox` | Eight Cornell Box scenes | CC BY 3.0 | 0.1 MiB | 1.1 MiB | `CornellBox-v1` |
 | `crytek-sponza` | Crytek's Sponza atrium, textured | CC BY 3.0 | 27.7 MiB | 47.2 MiB | `crytek-sponza-v1` |
@@ -57,8 +58,7 @@ does the same for the family's machine-learning models.
 Each `assets/<name>/asset.json` says how its license was established. **Three are `unknown`**
 (`Ajax`, `Dinosaurs`, `Pillum`): no license or credit came with them; settle each before relying on it.
 `Sulo` is published with Sulo456's permission (2026-10-17) and carries no open license, so reuse beyond
-the Kataglyphis projects needs his consent. `sibenik` is non-commercial, and the three Stanford scans may
-not be used commercially without Stanford's permission. The `Colosseum` assets and the sky are release-only: their releases are the only copy of their files ([conversions](docs/assets.md#converting-a-blender-scene-to-gltf)).
+the Kataglyphis projects needs his consent. `sibenik` is non-commercial, and the three Stanford scans may not be used commercially without Stanford's permission. The `Colosseum` assets and the sky are release-only: their releases are the only copy of their files ([conversions](docs/assets.md#converting-a-blender-scene-to-gltf)).
 
 ## Quick start
 

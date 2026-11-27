@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Add `Colosseum-ktx2`, `Colosseum-gltf` with its 69 textures as UASTC KTX2 (Zstandard, full mip chains) named by
+  `KHR_texture_basisu` alone, release-only under CC BY 4.0 with a NOTICE of both conversions, and
+  `scripts/ktx2/gltf_to_ktx2.py`, which converts a glTF archive with a KTX-Software build, both pinned in hub data
+  locks; clean runs give the same archive.
+
 - Add `kloofendal_43d_clear_puresky`, Greg Zaal's CC0 Poly Haven sky as six 512-pixel cube faces, release-only,
   for BeschleunigerBallett's skybox (which replaces its unlicensed DOOM2016 faces), and
   `scripts/cubemap/equirect_to_cubemap.py`, which converts an HDRI pinned by SHA-256 in `assets/<name>/cubemap.json`.

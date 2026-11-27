@@ -1,0 +1,13 @@
+{
+  "gltf": "Colosseum-gltf.gltf",
+  "encoder": "4.4.2",
+  "uastc_quality": 2,
+  "zstd": 18,
+  "mipmap_filter": "box",
+  "mipmap_wrap": "wrap",
+  "threads": 4,
+  "copy": [
+    "export-report.json"
+  ],
+  "copyright": "Colosseum by Sulo456 (https://github.com/Sulo456), CC BY 4.0; converted to glTF and KTX2 by AssetANT"
+}

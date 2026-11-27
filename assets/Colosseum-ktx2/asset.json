@@ -1,0 +1,16 @@
+{
+  "name": "Colosseum-ktx2",
+  "version": 1,
+  "file": "Colosseum-ktx2.tar.xz",
+  "sha256": "d04e21758854bd7c8e2943ade5954a285c9790aed3343930e3d38622ffc80a0f",
+  "summary": "Colosseum-gltf with every texture as UASTC KTX2 (Zstandard, full mip chains) named by KHR_texture_basisu alone, no PNG or JPEG: a GPU samples them as BC7, ETC2 or ASTC blocks in a quarter of the memory RGBA8 needs.",
+  "license": "CC BY 4.0",
+  "attribution": "Sulo456 (https://github.com/Sulo456)",
+  "origin": "AssetANT release Colosseum-gltf-v1, its textures re-encoded as KTX2",
+  "notes": "Release-only: converted from Colosseum-gltf-v1 (sha256 172fed54..., source.lock) by scripts/ktx2/gltf_to_ktx2.py with assets/Colosseum-ktx2/ktx2.json and KTX-Software 4.4.2's ktx create (encoder.lock): UASTC quality 2 without RDO, Zstandard level 18, box-filtered wrapping mip chains, sRGB for base colour and linear for normal and metallic-roughness maps; LICENSES/NOTICE.txt lists the changes, ktx2-report.json each texture's encoding.",
+  "source": null,
+  "unpacked": {
+    "files": 76,
+    "bytes": 289720587
+  }
+}

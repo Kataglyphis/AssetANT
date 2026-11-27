@@ -20,6 +20,8 @@ contract, in ANTfrastructure's
 | `scripts/blender/export_gltf.py` | Runs inside Blender: bakes a scene's box-projected and procedural materials into tiling textures and exports glTF 2.0 ([below](#converting-a-blender-scene-to-gltf)) |
 | `assets/<name>/cubemap.json` | Optional: the HDRI (URL and SHA-256) and settings `scripts/cubemap/equirect_to_cubemap.py` converted the asset with |
 | `scripts/cubemap/equirect_to_cubemap.py` | Six sRGB PNG cube faces from an equirectangular Radiance HDR ([below](#converting-an-hdri-to-cube-faces)) |
+| `assets/<name>/ktx2.json`, `source.lock`, `encoder.lock` | Optional: the settings and the two hub data locks (the source glTF archive, the KTX-Software builds) `scripts/ktx2/gltf_to_ktx2.py` converted the asset with |
+| `scripts/ktx2/gltf_to_ktx2.py` | A glTF's images as UASTC KTX2 with mip chains and Zstandard, named by `KHR_texture_basisu` alone ([below](#converting-gltf-textures-to-ktx2)) |
 | `scripts/check.py` | Validates every `asset.json` and that the README's asset table lists it |
 | `scripts/check.sh` | The push check (`check.yml`): `check.py`, Python tests and the asset-spec fixture/mutation suite on the family image's pinned CPython; ANTfrastructure's `ci_image_python_require` rejects a host interpreter |
 | `.github/workflows/lint-gates.yml` | ANTfrastructure's pinned ShellCheck, warning ratchet and strict duplication gate over tracked code on every push and pull request |
@@ -158,6 +160,44 @@ bash scripts/pack.sh --record .work/Resources dist <name>
 13.0.0) and on a WSL host with other builds (2026-11-18). The HDRI sits in no repository, so the asset is still
 release-only (`source` is `null`), published by hand.
 `scripts/tests/test_equirect_to_cubemap.py` checks the orientation, the yaw, the seams and the pin on a synthetic HDR.
+
+## Converting glTF textures to KTX2
+
+`scripts/ktx2/gltf_to_ktx2.py` re-encodes a glTF's images for GPUs that sample block-compressed textures: UASTC 4x4
+blocks, which a loader transcodes to BC7, ETC2 or ASTC without decoding them, a full mip chain, and Zstandard on each
+level. Every texture names its KTX2 through `KHR_texture_basisu` alone, which the glTF requires; no PNG or JPEG copy
+stays. The inputs are pinned in two hub data locks beside `ktx2.json`, and the hub's `fetch-data-lock.py` fetches and
+checks them: `source.lock`, the published glTF archive, and `encoder.lock`, KTX-Software's release builds for arm64
+and x86_64, whose `ktx create` encodes and `ktx validate --gltf-basisu` checks each file. The converter checks both
+hashes again, and `ktx2.json` fixes the rest.
+
+```bash
+fetch=third_party/ANTfrastructure/linux/scripts/lib/fetch-data-lock.py
+python3 -I "$fetch" --lock assets/Colosseum-ktx2/source.lock --dest .work/in --extract
+python3 -I "$fetch" --lock assets/Colosseum-ktx2/encoder.lock --dest .work/in
+python3 -I scripts/ktx2/gltf_to_ktx2.py .work/in assets/Colosseum-ktx2 .work/Resources/Models/Colosseum-ktx2
+bash scripts/pack.sh --record .work/Resources dist Colosseum-ktx2
+```
+
+- Base colour, emissive, sheen and specular colour maps are sRGB with BT.709 primaries, every other slot linear
+  without primaries, as `KHR_texture_basisu` requires. An image sampled both ways is refused.
+- UASTC quality 2 without rate-distortion optimisation, for quality first. On five Colosseum maps quality 3 added at
+  most 0.6 dB of base-level PSNR and quality 4 at most 1.8 dB, losing up to 0.2 dB on two colour maps, at 54 times
+  the encode time (194 s for one 2048-pixel map); RDO at lambda 0.5 saved 10 to 37 % of the bytes and cost 4 to 8 dB.
+  Zstandard level 22 saved under 3 % more than level 18.
+- Each mip level is the 2x2 box average, sRGB maps averaged in linear light, that both BeschleunigerBallett renderers
+  compute for a PNG or JPEG themselves, so a texture differs from its source by UASTC's error alone.
+- `--threads` is fixed in `ktx2.json`: the blocks do not depend on it, but `ktx create` records it in each file.
+  `--no-sse` keeps x86_64 off the SSE path, which arm64 has no counterpart of.
+- The buffer is copied byte for byte under the asset's name; meshes, materials, samplers, nodes and lights are
+  unchanged, and the JSON keeps the source's compact layout.
+- `ktx2-report.json` records the source and encoder hashes, the settings, and each texture's hashes, colour space and
+  the base-level PSNR `ktx create` measured against its source.
+
+`Colosseum-ktx2` took two minutes to convert on six arm64 cores; three clean runs in the family image gave the same
+files and archive, and the x86_64 build under QEMU wrote four of its textures, colour and data, byte for byte as the
+arm64 one did (2026-11-27). Its input is release-only, so the asset is too (`source` is `null`), published by
+hand. `scripts/tests/test_gltf_to_ktx2.py` checks the rewrite, the colour spaces and both pins with a stand-in for `ktx`.
 
 ## Using an asset
 
